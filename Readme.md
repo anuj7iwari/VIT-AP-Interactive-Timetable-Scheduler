@@ -1,5 +1,7 @@
 # **Interactive VIT-AP Timetable**
 
+![The original, confusing timetable](./Screenshot/Myvit.jpg)
+
 An interactive, responsive, and themeable web application that transforms the cluttered official VIT-AP timetable into a clean, intuitive, and user-friendly daily schedule.
 
 ### **The Problem**
