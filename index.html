@@ -459,7 +459,7 @@
         // --- START: CONFIGURATION ---
         
         // IMPORTANT: Add your new, unrestricted Gemini API Key here
-     const geminiApiKey = "AIzaSyAn-E9PmEz7aNJXRwa2ynXAZ1Rfad528Ww";
+    const geminiApiKey = "AIzaSyAn-E9PmEz7aNJXRwa2ynXAZ1Rfad528Ww";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -471,6 +471,8 @@ const firebaseConfig = {
   appId: "1:972609523565:web:91259fb444d72d19979464",
   measurementId: "G-H24YMP7MRT"
 };
+
+
 
         // --- END: CONFIGURATION ---
 
@@ -1149,31 +1151,8 @@ const firebaseConfig = {
             }
         }
 
-
-        function checkForImportedData() {
-            const htmlData = localStorage.getItem('vtopTimetableHTML');
-
-            if (htmlData) {
-                // Important: Clear the data from localStorage immediately after retrieving it
-                localStorage.removeItem('vtopTimetableHTML');
-                try {
-                    const decodedHtml = decodeURIComponent(atob(htmlData));
-                     auth.onAuthStateReady(() => {
-                         document.getElementById('import-tabs').classList.add('hidden');
-                         parseTimetableWithAI(decodedHtml);
-                     });
-                } catch (e) {
-                    console.error("Failed to parse imported HTML data:", e);
-                    alert("There was an error decoding the timetable data from local storage.");
-                }
-            }
-        }
-
-
         // --- DOMContentLoaded: Main entry point ---
         document.addEventListener('DOMContentLoaded', () => {
-            checkForImportedData(); // Check for bookmarklet data right away
-            
             // --- Get all elements ---
             const authContainer = document.getElementById('auth-container');
             const appContainer = document.getElementById('app-container');
@@ -1192,22 +1171,37 @@ const firebaseConfig = {
             const newCourseNameInput = document.getElementById('new-course-name');
             const newCourseColorInput = document.getElementById('new-course-color');
             const importTabs = document.getElementById('import-tabs');
-            
-            // --- FIXED: Define variables for modal elements ---
             const classModal = document.getElementById('class-modal');
             const betaModal = document.getElementById('beta-modal');
             const deleteModal = document.getElementById('delete-modal');
             const addClassModal = document.getElementById('add-class-modal');
             const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
             const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
+
+            // --- Check for imported data from localStorage FIRST ---
+            const importedHtmlData = localStorage.getItem('vtopTimetableHTML');
+            if (importedHtmlData) {
+                localStorage.removeItem('vtopTimetableHTML');
+                // Immediately show the import view and start parsing
+                authContainer.classList.add('hidden');
+                appContainer.classList.add('hidden');
+                importContainer.classList.remove('hidden');
+                try {
+                    const decodedHtml = decodeURIComponent(atob(importedHtmlData));
+                    document.getElementById('import-tabs').classList.add('hidden');
+                    parseTimetableWithAI(decodedHtml);
+                } catch (e) {
+                    console.error("Failed to parse imported HTML data:", e);
+                    document.getElementById('import-error').textContent = "There was an error decoding the timetable data.";
+                }
+            }
             
             // --- Add all event listeners ---
             setupThemeSwitcher();
-            setupBookmarkletLink(); // Setup the bookmarklet link now that the DOM is ready
+            setupBookmarkletLink();
 
             document.getElementById('beta-button').addEventListener('click', showBetaModal);
             
-            // Event listeners for closing modals
             classModal.addEventListener('click', (e) => { if (e.target === classModal) closeClassModal(); });
             betaModal.addEventListener('click', (e) => { if (e.target === betaModal) closeBetaModal(); });
             deleteModal.addEventListener('click', (e) => { if (e.target === deleteModal) closeDeleteModal(); });
@@ -1250,11 +1244,19 @@ const firebaseConfig = {
             });
 
             launchBuilderBtn.addEventListener('click', () => showBuilderScreen([]));
+            
             cancelBuildBtn.addEventListener('click', () => {
                 reviewView.classList.add('hidden');
                 initialImportView.classList.remove('hidden');
-                 document.getElementById('import-tabs').classList.remove('hidden');
-
+                document.getElementById('import-tabs').classList.remove('hidden');
+                // After cancelling, determine the correct view based on auth state
+                if (auth.currentUser) {
+                    listenToTimetable(auth.currentUser.uid); // This will show the import screen again if no data exists
+                } else {
+                    authContainer.classList.remove('hidden');
+                    appContainer.classList.add('hidden');
+                    importContainer.classList.add('hidden');
+                }
             });
 
             addCourseBtn.addEventListener('click', () => {
@@ -1345,31 +1347,37 @@ const firebaseConfig = {
 
             confirmSaveBtnBuilder.addEventListener('click', async () => {
                 const user = auth.currentUser;
-                if (!user) return;
+                if (!user) {
+                    alert("You must be logged in to save a timetable.");
+                    return;
+                };
                 try {
                     const timetableRef = doc(db, "timetables", user.uid);
                     await setDoc(timetableRef, { schedule: tempSchedule, courses: tempCourses });
-                    reviewView.classList.add('hidden');
-                    initialImportView.classList.remove('hidden');
+                    // onSnapshot will automatically handle showing the app view
                 } catch(e) {
                     console.error("Error saving schedule: ", e);
-                    // Optionally show an error to the user
+                    alert("Could not save timetable. Please try again.");
                 }
             });
 
             // --- Finally, set up the auth listener ---
             onAuthStateChanged(auth, user => {
+                // If the builder/review view is visible, an import is in progress.
+                // Don't let the auth state change interrupt it.
+                if (!reviewView.classList.contains('hidden')) {
+                    return;
+                }
+
                 if (user) {
-                    // if we landed here via bookmarklet, the data is already parsed
-                    // and showBuilderScreen is waiting for auth to be ready.
                     listenToTimetable(user.uid);
                 } else {
                     if (unsubscribe) unsubscribe();
+                    // This will only run if an import is NOT in progress
                     authContainer.classList.remove('hidden');
                     appContainer.classList.add('hidden');
                     importContainer.classList.add('hidden');
                     stopAppIntervals();
-                    // Setup bookmarklet link here too, for non-logged-in users.
                     setupBookmarkletLink();
                 }
             });
