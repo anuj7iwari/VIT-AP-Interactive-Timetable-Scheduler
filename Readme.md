@@ -15,6 +15,7 @@ The official university timetable, while functional, can often be overwhelming a
 ### **The Solution**
 
 ![The new, clean, and interactive timetable](./Screenshot/Screenshot2.png)
+![The original, confusing timetable](./Screenshot/Screenshot3.png)
 
 This project aims to solve that problem by providing a visually appealing and highly functional alternative. It parses the class data and presents it in a beautiful, interactive timeline view that is easy to navigate and understand.
 
