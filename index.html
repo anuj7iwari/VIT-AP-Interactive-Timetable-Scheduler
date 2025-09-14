@@ -458,7 +458,8 @@
 
         // --- START: CONFIGURATION ---
         
-       const geminiApiKey = "AIzaSyAn-E9PmEz7aNJXRwa2ynXAZ1Rfad528Ww";
+        // IMPORTANT: Add your new, unrestricted Gemini API Key here
+  const geminiApiKey = "AIzaSyAn-E9PmEz7aNJXRwa2ynXAZ1Rfad528Ww";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -1177,14 +1178,18 @@ const firebaseConfig = {
             const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
             const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
 
+            let isImportFlow = false;
+
             // --- Check for imported data from localStorage FIRST ---
             const importedHtmlData = localStorage.getItem('vtopTimetableHTML');
             if (importedHtmlData) {
+                isImportFlow = true;
                 localStorage.removeItem('vtopTimetableHTML');
-                // Immediately show the import view and start parsing
+                
                 authContainer.classList.add('hidden');
                 appContainer.classList.add('hidden');
                 importContainer.classList.remove('hidden');
+                
                 try {
                     const decodedHtml = decodeURIComponent(atob(importedHtmlData));
                     document.getElementById('import-tabs').classList.add('hidden');
@@ -1193,23 +1198,26 @@ const firebaseConfig = {
                     console.error("Failed to parse imported HTML data:", e);
                     document.getElementById('import-error').textContent = "There was an error decoding the timetable data.";
                 }
-            } else {
-                // Only set up auth listener if no import data is found
-                onAuthStateChanged(auth, user => {
-                    if (user) {
-                        listenToTimetable(user.uid);
-                    } else {
-                        if (unsubscribe) unsubscribe();
-                        authContainer.classList.remove('hidden');
-                        appContainer.classList.add('hidden');
-                        importContainer.classList.add('hidden');
-                        stopAppIntervals();
-                        setupBookmarkletLink();
-                    }
-                });
             }
             
-            // --- Add all event listeners ---
+            // --- Set up auth listener ---
+            onAuthStateChanged(auth, user => {
+                if (isImportFlow) {
+                    return; // Do nothing if we are in the middle of an import
+                }
+                if (user) {
+                    listenToTimetable(user.uid);
+                } else {
+                    if (unsubscribe) unsubscribe();
+                    authContainer.classList.remove('hidden');
+                    appContainer.classList.add('hidden');
+                    importContainer.classList.add('hidden');
+                    stopAppIntervals();
+                    setupBookmarkletLink();
+                }
+            });
+            
+            // --- Add all other event listeners ---
             setupThemeSwitcher();
             setupBookmarkletLink();
 
@@ -1256,10 +1264,15 @@ const firebaseConfig = {
                 document.getElementById(`tab-content-${e.target.dataset.tab}`).classList.remove('hidden');
             });
 
-            launchBuilderBtn.addEventListener('click', () => showBuilderScreen([]));
+            launchBuilderBtn.addEventListener('click', () => {
+                isImportFlow = true; // Enter import mode for manual build too
+                authContainer.classList.add('hidden');
+                appContainer.classList.add('hidden');
+                importContainer.classList.remove('hidden');
+                showBuilderScreen([]);
+            });
             
             cancelBuildBtn.addEventListener('click', () => {
-                // This button should essentially reload the page to restart the logic
                 window.location.reload();
             });
 
@@ -1350,15 +1363,16 @@ const firebaseConfig = {
             });
 
             confirmSaveBtnBuilder.addEventListener('click', async () => {
-                const save = async (user) => {
+                const performSave = async (user) => {
+                    if (!user) {
+                        alert("Could not get user information to save.");
+                        return;
+                    }
                     try {
                         const timetableRef = doc(db, "timetables", user.uid);
                         await setDoc(timetableRef, { schedule: tempSchedule, courses: tempCourses });
-                        // We don't need to do anything else, onSnapshot will take over.
-                        // But we can reset the view just in case.
-                        reviewView.classList.add('hidden');
-                        // Let onAuthStateChanged handle showing the correct final screen.
-                        window.location.reload(); // Reload to show the app view
+                        isImportFlow = false; 
+                        window.location.reload(); 
                     } catch (e) {
                         console.error("Error saving schedule: ", e);
                         alert("Could not save timetable. Please try again.");
@@ -1366,14 +1380,14 @@ const firebaseConfig = {
                 };
                 
                 if (auth.currentUser) {
-                    save(auth.currentUser);
+                    await performSave(auth.currentUser);
                 } else {
                     const provider = new GoogleAuthProvider();
                     try {
                         const result = await signInWithPopup(auth, provider);
-                        save(result.user);
+                        await performSave(result.user);
                     } catch (error) {
-                        console.error("Google sign-in error", error);
+                        console.error("Google sign-in error during save:", error);
                         alert("You must sign in to save your timetable. " + error.code);
                     }
                 }
@@ -1382,4 +1396,12 @@ const firebaseConfig = {
     </script>
 </body>
 </html>
+"
+its showing this now when i am trying to run the code 
+
+An error occurred
+
+URI_TOO_LONG
+
+btoa1::
 
