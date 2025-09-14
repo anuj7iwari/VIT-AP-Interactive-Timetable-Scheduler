@@ -1,16 +1,18 @@
 # **Interactive VIT-AP Timetable**
 
-![My new timetable interface](./Screenshots/Screenshots1.png)
-
 An interactive, responsive, and themeable web application that transforms the cluttered official VIT-AP timetable into a clean, intuitive, and user-friendly daily schedule.
 
 ### **The Problem**
+
+![The original, confusing timetable](./Screenshots/Screenshot1.png)
 
 The official university timetable, while functional, can often be overwhelming and difficult to read at a glance. Its dense grid layout makes it hard to quickly figure out where you need to be next, especially on a mobile device.
 
 *The original, confusing timetable.*
 
-### **The Solution**![][image2]
+### **The Solution**
+
+![The new, clean, and interactive timetable](./Screenshots/Screenshot2.png)
 
 This project aims to solve that problem by providing a visually appealing and highly functional alternative. It parses the class data and presents it in a beautiful, interactive timeline view that is easy to navigate and understand.
 
