@@ -472,8 +472,6 @@ const firebaseConfig = {
   measurementId: "G-H24YMP7MRT"
 };
 
-
-
         // --- END: CONFIGURATION ---
 
 
@@ -1039,9 +1037,9 @@ const firebaseConfig = {
                     try {
                         const data = btoa(unescape(encodeURIComponent(htmlContent)));
                         const appUrl = '${window.location.origin}${window.location.pathname}';
-                        const redirectUrl = appUrl + '?timetableHTML=' + encodeURIComponent(data);
+                        localStorage.setItem('vtopTimetableHTML', data);
                         alert('HTML copied! Redirecting you to the timetable app for AI parsing...');
-                        window.location.href = redirectUrl;
+                        window.location.href = appUrl;
                     } catch(e) {
                         alert('An error occurred while encoding the page data: ' + e.message);
                     }
@@ -1153,10 +1151,11 @@ const firebaseConfig = {
 
 
         function checkForImportedData() {
-            const params = new URLSearchParams(window.location.search);
-            const htmlData = params.get('timetableHTML');
+            const htmlData = localStorage.getItem('vtopTimetableHTML');
 
             if (htmlData) {
+                // Important: Clear the data from localStorage immediately after retrieving it
+                localStorage.removeItem('vtopTimetableHTML');
                 try {
                     const decodedHtml = decodeURIComponent(atob(htmlData));
                      auth.onAuthStateReady(() => {
@@ -1165,9 +1164,7 @@ const firebaseConfig = {
                      });
                 } catch (e) {
                     console.error("Failed to parse imported HTML data:", e);
-                    alert("There was an error decoding the timetable data from the URL.");
-                } finally {
-                    history.replaceState(null, '', window.location.pathname);
+                    alert("There was an error decoding the timetable data from local storage.");
                 }
             }
         }
@@ -1380,3 +1377,4 @@ const firebaseConfig = {
     </script>
 </body>
 </html>
+
