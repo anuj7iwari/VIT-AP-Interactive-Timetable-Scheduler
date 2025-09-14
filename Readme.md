@@ -1,6 +1,6 @@
 # **Interactive VIT-AP Timetable**
 
-![My new timetable interface](./screenshots/screenshots1.png)
+![My new timetable interface](./Screenshots/Screenshots1.png)
 
 An interactive, responsive, and themeable web application that transforms the cluttered official VIT-AP timetable into a clean, intuitive, and user-friendly daily schedule.
 
