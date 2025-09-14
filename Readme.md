@@ -4,7 +4,7 @@ An interactive, responsive, and themeable web application that transforms the cl
 
 ### **The Problem**
 
-![The original, confusing timetable](./Screenshots/Screenshot1.png)
+![The original, confusing timetable](./Screenshot/Screenshot1.png)
 
 The official university timetable, while functional, can often be overwhelming and difficult to read at a glance. Its dense grid layout makes it hard to quickly figure out where you need to be next, especially on a mobile device.
 
@@ -12,7 +12,7 @@ The official university timetable, while functional, can often be overwhelming a
 
 ### **The Solution**
 
-![The new, clean, and interactive timetable](./Screenshots/Screenshot2.png)
+![The new, clean, and interactive timetable](./Screenshot/Screenshot2.png)
 
 This project aims to solve that problem by providing a visually appealing and highly functional alternative. It parses the class data and presents it in a beautiful, interactive timeline view that is easy to navigate and understand.
 
