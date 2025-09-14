@@ -6,66 +6,12 @@
     <title>Interactive VIT-AP Timetable</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="https://placehold.co/32x32/4285F4/FFFFFF?text=V">
-    <style>
-        :root {
-            --bg-color: #f8f9fa; --text-color: #212529; --text-color-light: #6c757d;
-            --card-bg-color: #ffffff; --card-border-color: #e9ecef; --brand-grad-1: #4285F4;
-            --brand-grad-2: #9b72cb; --button-bg: rgba(255, 255, 255, 0.7);
-            --button-border: rgba(0, 0, 0, 0.1); --button-text: #333; --button-active-bg: #4285F4;
-            --button-active-border: #4285F4; --button-active-text: #ffffff; --logo-bg: #f0f4ff;
-            --logo-border: #dbe1ff; --logo-text: #4364c6;
-        }
-        .theme-dark {
-            --bg-color: #131314; --text-color: #e0e0e0; --text-color-light: #888;
-            --card-bg-color: #1e1f20; --card-border-color: rgba(255, 255, 255, 0.1);
-            --brand-grad-1: #89b1ff; --brand-grad-2: #ad99ff; --button-bg: rgba(255, 255, 255, 0.05);
-            --button-border: rgba(255, 255, 255, 0.15); --button-text: #e0e0e0;
-            --button-active-bg: rgba(137, 177, 255, 0.2); --button-active-border: rgba(137, 177, 255, 0.5);
-            --button-active-text: #e0e0e0; --logo-bg: #2a2c33; --logo-border: #3b3d46; --logo-text: #a8bbf0;
-        }
-        .theme-ocean {
-            --bg-color: #f0f9ff; --text-color: #0c4a6e; --text-color-light: #3880a9;
-            --card-bg-color: #ffffff; --card-border-color: #e0f2fe; --brand-grad-1: #0ea5e9;
-            --brand-grad-2: #14b8a6; --button-active-bg: #0ea5e9; --button-active-border: #0ea5e9;
-        }
-        .theme-cyberpunk {
-            --bg-color: #0d0c1d; --text-color: #c0c0ff; --text-color-light: #8080c0;
-            --card-bg-color: rgba(10, 10, 30, 0.6); --card-border-color: #39388a;
-            --brand-grad-1: #00f5d4; --brand-grad-2: #ff00ff; --button-bg: rgba(0, 245, 212, 0.05);
-            --button-border: rgba(0, 245, 212, 0.2); --button-text: #c0c0ff;
-            --button-active-bg: rgba(0, 245, 212, 0.2); --button-active-border: #00f5d4;
-            --button-active-text: #ffffff; --logo-bg: rgba(0, 245, 212, 0.1);
-            --logo-border: rgba(0, 245, 212, 0.3); --logo-text: #00f5d4;
-        }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-color); transition: background-color 0.3s, color 0.3s; }
-        .theme-cyberpunk body { background-image: linear-gradient(rgba(100, 100, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(100, 100, 255, 0.05) 1px, transparent 1px); background-size: 2rem 2rem; }
-        body::after { content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWYmJitbW1oaGhra2uBgYGHh4d5eXlzc3OLi4ubm5uVlZWYmJitbW1oaGhra2uBgYGHh4d5eXlzc3OLi4ubm5uVlZWYmJitbW1oaGhra2uBgYGHh4d5eXlzc3OLi4ubm5uVlZWYmJitbW1oaGhra2uAgMDAwP7L/lOAAAAF3RSTlMASCD+vwgP3x/Pz9/f39/f39/f39/f3/D0LwL/AAAAx0lEQVR42mP2BxkAAkAAQgwA2cO43IAwmO5gAAnAAODt4gIAz0sUACSAADzTvwvAAKLSxA1wBlwAAsAAdxI+ADwRCQAgAAw8Bf4wAEsA1QIAkAAg8C/O/wCAADAC+wEAAEAASAAB4QAAAeABb/9AAIAABAAkAAWAAAEAAkAAUEAAAUEAAUEAAUEAAUEAAUEAAUEAAUEAAUEAAUEAAUEAAUEAAUEAAUEAAUEAAUEAAUEAAUEAAUEAAh0y/wEAAEAASAAB4QAAAAeAA3/9AAIAABAAAADn/0gAAAABJRU5ErkJggg==); opacity: 0.04; pointer-events: none; z-index: -1; }
-        .brand-gradient-text { background: -webkit-linear-gradient(45deg, var(--brand-grad-1), var(--brand-grad-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .card-bg { background-color: var(--card-bg-color); border: 1px solid var(--card-border-color); }
-        .glass-button { background: var(--button-bg); border: 1px solid var(--button-border); color: var(--button-text); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all 0.2s ease; }
-        .glass-button:hover { border-color: var(--brand-grad-1); }
-        .glass-button.active { background: var(--button-active-bg); border-color: var(--button-active-border); color: var(--button-active-text); font-weight: 600; }
-        .day-timeline { position: relative; padding-left: 90px; }
-        .timeline-line { position: absolute; left: 25px; top: 0; bottom: 0; width: 2px; background: var(--card-border-color); }
-        .class-card-timeline { position: absolute; left: 95px; right: 10px; border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.2s ease; border-left-width: 4px; }
-        .class-card-timeline:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .time-marker { position: absolute; left: -75px; font-size: 0.75rem; color: var(--text-color-light); font-weight: 500; }
-        .modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 50; }
-        .header-controls { position: absolute; top: 1rem; left: 1rem; display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; z-index: 10; }
-        .user-controls { position: absolute; top: 1rem; right: 1rem; display: flex; align-items: center; gap: 0.5rem; z-index: 10; }
-        .beta-logo { cursor: pointer; display: flex; align-items: center; gap: 0.3rem; padding: 0.25rem 0.6rem; background-color: var(--logo-bg); border: 1px solid var(--logo-border); border-radius: 9999px; font-size: 0.875rem; font-weight: 600; color: var(--logo-text); }
-        #theme-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: none; padding-right: 1.5rem; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236c757d' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.25em 1.25em; }
-        .tab-btn.active { border-bottom: 2px solid var(--brand-grad-1); color: var(--text-color); }
-        .tab-btn { color: var(--text-color-light); }
-        #add-class-modal-content input, #add-class-modal-content select, #api-import-form input { background-color: var(--bg-color); color: var(--text-color); border: 1px solid var(--card-border-color); }
-        #add-class-modal-content label, #add-class-modal-content h3, #api-import-form label { color: var(--text-color); }
-        @media (max-width: 768px) { .header-controls, .user-controls { position: static; width: 100%; flex-direction: row; justify-content: space-between; margin-bottom: 1rem; } .day-timeline { padding-left: 60px; } .class-card-timeline { left: 65px; } .time-marker { left: -50px; } }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="./Screenshot/favicon.png">
 </head>
 <body class="p-4 md:p-8">
 
-    <!-- Auth Container (for Firebase login) -->
+    <!-- Auth Container -->
     <div id="auth-container" class="hidden flex items-center justify-center min-h-screen">
         <div class="card-bg p-8 rounded-2xl shadow-lg max-w-md w-full text-center">
             <h1 class="text-3xl font-bold brand-gradient-text">Welcome</h1>
@@ -94,22 +40,45 @@
                 </select>
             </div>
         </div>
+
         <header class="mb-8 text-center pt-24 md:pt-0">
             <h1 class="text-4xl md:text-5xl font-bold brand-gradient-text">My VIT-AP Timetable</h1>
             <p class="text-gray-500 mt-2">Your interactive schedule for the semester.</p>
         </header>
+
+        <div id="cat-clock" class="cat-clock">
+            <span id="clock-text">--:-- --</span>
+        </div>
+
         <div class="user-controls">
             <button id="delete-timetable-btn" class="bg-red-500 text-white font-semibold text-sm py-2 px-4 rounded-full hover:bg-red-600 transition">Delete Timetable</button>
             <button id="logout-btn" class="glass-button text-sm font-semibold py-2 px-4 rounded-full">Logout</button>
         </div>
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="card-bg p-6 rounded-2xl"><h2 class="font-bold text-lg mb-2">Next Up</h2><div id="next-class-card" class="text-gray-600">Loading...</div></div>
-            <div class="card-bg p-6 rounded-2xl"><h2 class="font-bold text-lg mb-2">Day's First Class</h2><div id="first-class-card" class="text-gray-600">Loading...</div></div>
-            <div class="card-bg p-6 rounded-2xl"><h2 class="font-bold text-lg mb-2">Day's Last Class</h2><div id="last-class-card" class="text-gray-600">Loading...</div></div>
+            <div class="card-bg p-6 rounded-2xl">
+                <h2 class="font-bold text-lg text-gray-700 mb-2">Next Up</h2>
+                <div id="next-class-card" class="text-gray-600">Loading...</div>
+            </div>
+            <div class="card-bg p-6 rounded-2xl">
+                <h2 class="font-bold text-lg text-gray-700 mb-2">Day's First Class</h2>
+                <div id="first-class-card" class="text-gray-600">Loading...</div>
+            </div>
+            <div class="card-bg p-6 rounded-2xl">
+                <h2 class="font-bold text-lg text-gray-700 mb-2">Day's Last Class</h2>
+                <div id="last-class-card" class="text-gray-600">Loading...</div>
+            </div>
         </div>
-        <div id="day-selector-container" class="card-bg p-4 rounded-2xl mb-8"><div id="day-selector" class="flex flex-wrap justify-center gap-3"></div></div>
+        
+        <div id="day-selector-container" class="card-bg p-4 rounded-2xl mb-8">
+            <div id="day-selector" class="flex flex-wrap justify-center gap-3"></div>
+        </div>
+
         <div id="course-legend" class="card-bg p-4 rounded-2xl mb-8"></div>
-        <div id="timetable-container" class="card-bg p-4 rounded-2xl"><div id="day-timeline" class="day-timeline relative"></div></div>
+
+        <div id="timetable-container" class="card-bg p-4 rounded-2xl">
+            <div id="day-timeline" class="day-timeline relative"></div>
+        </div>
     </div>
     
     <!-- Import Container -->
@@ -118,201 +87,143 @@
             <h2 class="text-2xl font-bold text-center brand-gradient-text">Import Your Timetable</h2>
             
             <div id="initial-import-view">
-                <div id="import-tabs" class="border-b mt-4 mb-6 flex justify-center">
-                    <button data-tab="api" class="tab-btn active py-2 px-4 font-semibold">Import via API</button>
+                <div id="import-tabs" class="border-b border-gray-200 mt-4 mb-6 flex justify-center">
+                    <button data-tab="easy" class="tab-btn active py-2 px-4 font-semibold">Easy Import (Bookmarklet)</button>
                     <button data-tab="manual" class="tab-btn py-2 px-4 font-semibold">Manual Builder</button>
                 </div>
 
-                <!-- API Import Tab -->
-                <div id="tab-content-api" class="tab-content">
-                    <h4 class="font-bold text-center">VTOP API Import</h4>
-                    <p class="text-center text-gray-500 mb-4 text-sm">Enter your VTOP credentials to automatically fetch your timetable. Make sure your local API server is running.</p>
-                    <form id="api-import-form" class="max-w-sm mx-auto space-y-4">
-                        <div>
-                            <label for="reg-no-input" class="block text-sm font-medium">Registration Number</label>
-                            <input type="text" id="reg-no-input" placeholder="e.g., 21BCE0001" required class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                        </div>
-                        <div>
-                            <label for="password-input" class="block text-sm font-medium">VTOP Password</label>
-                            <input type="password" id="password-input" placeholder="••••••••" required class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                        </div>
-                        <div>
-                            <label for="sem-id-input" class="block text-sm font-medium">Semester ID</label>
-                            <input type="text" id="sem-id-input" placeholder="e.g., VL20242501" required class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                        </div>
-                        <button id="api-import-btn" type="submit" class="w-full bg-blue-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-600 transition">Fetch Timetable</button>
-                    </form>
+                <!-- Easy Import Tab -->
+                <div id="tab-content-easy" class="tab-content prose max-w-none">
+                     <h4 class="font-bold">One-Click Timetable Import</h4>
+                    <p>This is the easiest and most recommended way to import your schedule.</p>
+                    <ol>
+                        <li><strong>Drag this link to your bookmarks bar:</strong>
+                            <a id="bookmarklet-link" href="#" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg inline-block">Scrape VTOP Timetable</a>
+                        </li>
+                        <li>Log in to VTOP and navigate to your timetable page.</li>
+                        <li>Click the "Scrape VTOP Timetable" bookmark you just created.</li>
+                    </ol>
+                    <p>You will be automatically redirected back here to review and save your schedule. It's that simple!</p>
                 </div>
 
                 <!-- Manual Builder Tab -->
                 <div id="tab-content-manual" class="tab-content hidden">
                     <p class="text-center text-gray-500 mb-4">Use the builder below to manually create your schedule from scratch.</p>
-                    <div class="text-center">
+                     <div class="text-center">
                         <button id="launch-builder-btn" class="bg-blue-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-600 transition">Launch Schedule Builder</button>
                     </div>
                 </div>
-
-                <div id="loading-container" class="hidden text-center my-6">
-                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-                    <p class="mt-4">Fetching data from VTOP via your local API...</p>
-                </div>
-                <p id="import-error" class="text-red-500 mt-4 text-sm text-center"></p>
-
             </div>
             
             <!-- Review / Builder View -->
             <div id="review-view" class="hidden">
-                 <h3 class="text-xl font-bold text-center">Build Your Schedule</h3>
+                 <h3 class="text-xl font-bold text-center text-gray-800">Build Your Schedule</h3>
                  <p class="text-center text-gray-500 mb-6 text-sm">Add your courses first, then build your weekly schedule day by day.</p>
+                
+                 <!-- Course Manager -->
                  <div class="mb-8">
-                     <h4 class="font-bold text-lg mb-2">1. Manage Courses</h4>
-                     <div class="card-bg p-4 rounded-lg">
-                         <div id="course-list-editor" class="mb-4 space-y-2"></div>
-                         <div class="flex gap-2">
-                             <input id="new-course-name" type="text" placeholder="New Course Name" class="flex-grow p-2 border rounded-md">
-                             <input id="new-course-color" type="color" value="#4285F4" class="p-1 h-10 w-10 block bg-white border cursor-pointer rounded-lg">
-                             <button id="add-course-btn" class="bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300 transition">Add</button>
-                         </div>
-                     </div>
+                    <h4 class="font-bold text-lg mb-2">1. Manage Courses</h4>
+                    <div class="card-bg p-4 rounded-lg">
+                        <div id="course-list-editor" class="mb-4 space-y-2"></div>
+                        <div class="flex gap-2">
+                            <input id="new-course-name" type="text" placeholder="New Course Name" class="flex-grow p-2 border rounded-md">
+                            <input id="new-course-color" type="color" value="#4285F4" class="p-1 h-10 w-10 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none">
+                            <button id="add-course-btn" class="bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300 transition">Add</button>
+                        </div>
+                    </div>
                  </div>
+
+                 <!-- Schedule Builder -->
                  <div>
-                     <h4 class="font-bold text-lg mb-2">2. Weekly Schedule</h4>
-                     <div class="card-bg p-4 rounded-lg">
-                         <div id="schedule-day-tabs" class="border-b flex"></div>
-                         <div id="schedule-day-content" class="mt-4"></div>
-                     </div>
+                    <h4 class="font-bold text-lg mb-2">2. Weekly Schedule</h4>
+                    <div class="card-bg p-4 rounded-lg">
+                        <div id="schedule-day-tabs" class="border-b border-gray-200 flex"></div>
+                        <div id="schedule-day-content" class="mt-4"></div>
+                    </div>
                  </div>
+
                  <div class="flex gap-4 mt-8">
-                     <button id="cancel-build-btn" class="w-full bg-gray-200 text-gray-700 font-semibold py-3 rounded-lg hover:bg-gray-300 transition">Cancel</button>
-                     <button id="confirm-save-btn" class="w-full bg-green-500 text-white font-semibold py-3 rounded-lg hover:bg-green-600 transition">Save Timetable</button>
+                    <button id="cancel-build-btn" class="w-full bg-gray-200 text-gray-700 font-semibold py-3 rounded-lg hover:bg-gray-300 transition">Cancel</button>
+                    <button id="confirm-save-btn" class="w-full bg-green-500 text-white font-semibold py-3 rounded-lg hover:bg-green-600 transition">Save Timetable</button>
                  </div>
             </div>
          </div>
     </div>
 
+
+    <!-- Creator Footer -->
+    <footer class="text-center mt-12 text-gray-500 text-sm">
+        <p>Created by Anuj Tiwari</p>
+        <div class="flex justify-center gap-4 mt-2">
+            <a href="https://github.com/anuj7iwari" target="_blank" class="hover:text-blue-500 transition">GitHub</a>
+            <span>&bull;</span>
+            <a href="mailto:anuj7iwari@gmail.com" class="hover:text-blue-500 transition">Mail</a>
+        </div>
+    </footer>
+
     <!-- Modals -->
-    <div id="class-modal" class="modal-backdrop hidden"> <div class="card-bg rounded-2xl shadow-2xl w-11/12 max-w-md p-8 relative transform transition-all duration-300 scale-95 opacity-0" id="class-modal-content"></div> </div>
-    <div id="beta-modal" class="modal-backdrop hidden"> <div class="card-bg rounded-2xl shadow-2xl w-11/12 max-w-sm p-8 relative transform transition-all duration-300 scale-95 opacity-0 text-center" id="beta-modal-content"><p class="text-xl font-bold brand-gradient-text">Psst!</p><p class="mt-2 text-gray-500">Cats are working in the backend.</p></div> </div>
-    <div id="delete-modal" class="modal-backdrop hidden"> <div class="card-bg rounded-2xl shadow-2xl w-11/12 max-w-sm p-8 relative transform transition-all duration-300 scale-95 opacity-0 text-center" id="delete-modal-content"><h3 class="text-xl font-bold">Are you sure?</h3><p class="mt-2 text-gray-500">This will permanently delete your timetable.</p><div class="mt-6 flex justify-center gap-4"><button id="cancel-delete-btn" class="glass-button font-semibold py-2 px-4 rounded-lg">Cancel</button><button id="confirm-delete-btn" class="bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 transition">Yes, Delete</button></div></div> </div>
-    <div id="add-class-modal" class="modal-backdrop hidden"> <div class="card-bg rounded-2xl shadow-2xl w-11/12 max-w-lg p-8 relative transform transition-all duration-300 scale-95 opacity-0" id="add-class-modal-content"></div> </div>
-    
-    <script type="module">
-        // Firebase Imports
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        import { getFirestore, doc, setDoc, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    <div id="class-modal" class="modal-backdrop hidden">
+        <div class="card-bg rounded-2xl shadow-2xl w-11/12 max-w-md p-8 relative transform transition-all duration-300 scale-95 opacity-0" id="class-modal-content"></div>
+    </div>
+    <div id="beta-modal" class="modal-backdrop hidden">
+        <div class="card-bg rounded-2xl shadow-2xl w-11/12 max-w-sm p-8 relative transform transition-all duration-300 scale-95 opacity-0 text-center" id="beta-modal-content">
+            <p class="text-xl font-bold brand-gradient-text">Psst!</p>
+            <p class="mt-2 text-gray-500">Cats are working in the backend, do not disturb them.</p>
+        </div>
+    </div>
+    <div id="delete-modal" class="modal-backdrop hidden">
+        <div class="card-bg rounded-2xl shadow-2xl w-11/12 max-w-sm p-8 relative transform transition-all duration-300 scale-95 opacity-0 text-center" id="delete-modal-content">
+            <h3 class="text-xl font-bold text-gray-800">Are you sure?</h3>
+            <p class="mt-2 text-gray-500">This will permanently delete your timetable. This action cannot be undone.</p>
+            <div class="mt-6 flex justify-center gap-4">
+                <button id="cancel-delete-btn" class="glass-button font-semibold py-2 px-4 rounded-lg">Cancel</button>
+                <button id="confirm-delete-btn" class="bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 transition">Yes, Delete It</button>
+            </div>
+        </div>
+    </div>
+    <div id="add-class-modal" class="modal-backdrop hidden">
+        <div class="card-bg rounded-2xl shadow-2xl w-11/12 max-w-lg p-8 relative transform transition-all duration-300 scale-95 opacity-0" id="add-class-modal-content">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Add/Edit Class</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="font-semibold text-gray-700">Course</label>
+                    <select id="class-course-select" class="w-full p-2 border rounded-md mt-1"></select>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="font-semibold text-gray-700">Start Time (HH:MM)</label>
+                        <input id="class-start-time" type="text" placeholder="e.g., 14:00" class="w-full p-2 border rounded-md mt-1">
+                    </div>
+                    <div>
+                        <label class="font-semibold text-gray-700">End Time (HH:MM)</label>
+                        <input id="class-end-time" type="text" placeholder="e.g., 14:50" class="w-full p-2 border rounded-md mt-1">
+                    </div>
+                </div>
+                <div>
+                    <label class="font-semibold text-gray-700">Instructor</label>
+                    <input id="class-instructor" type="text" class="w-full p-2 border rounded-md mt-1">
+                </div>
+                <div>
+                    <label class="font-semibold text-gray-700">Location</label>
+                    <input id="class-location" type="text" class="w-full p-2 border rounded-md mt-1">
+                </div>
+                 <div>
+                    <label class="font-semibold text-gray-700">Type</label>
+                    <select id="class-type-select" class="w-full p-2 border rounded-md mt-1">
+                        <option>Theory</option>
+                        <option>Lab</option>
+                    </select>
+                </div>
+            </div>
+            <p id="add-class-error" class="text-red-500 text-sm mt-4 text-center"></p>
+            <div class="mt-6 flex justify-end gap-4">
+                <button id="cancel-add-class-btn" class="glass-button font-semibold py-2 px-4 rounded-lg">Cancel</button>
+                <button id="save-class-btn" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition">Save Class</button>
+            </div>
+        </div>
+    </div>
 
-        // --- START: CONFIGURATION ---
-        const VTOP_API_URL = 'http://127.0.0.1:8000/student/all_data';
-        const VTOP_API_KEY = 'my-super-secret-vtop-key-9876'; // IMPORTANT: Replace with the key you created in your .env file
-        const firebaseConfig = {
-  apiKey: "AIzaSyDguREMxNYeUnBysfIyB6cCaGp8k2ZypbY",
-  authDomain: "vit-ap-easy-timetable.firebaseapp.com",
-  projectId: "vit-ap-easy-timetable",
-  storageBucket: "vit-ap-easy-timetable.firebasestorage.app",
-  messagingSenderId: "972609523565",
-  appId: "1:972609523565:web:91259fb444d72d19979464",
-  measurementId: "G-H24YMP7MRT"
-};
-        // --- END: CONFIGURATION ---
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth();
-        const db = getFirestore();
-
-        let schedule = [], userCourses = {};
-        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        const MINUTE_TO_PX = 1.5, CARD_GAP = 5, MIN_CARD_HEIGHT = 110;
-        let unsubscribe, clockInterval, infoInterval;
-        let tempSchedule = [], tempCourses = {}, editingClass = null;
-        
-        // --- Helper Functions ---
-        const timeToMinutes = t => !t||!/^\d{2}:\d{2}$/.test(t)?0:(t.split(':').map(Number)[0]*60+t.split(':').map(Number)[1]);
-        const formatTime12hr = d => `${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')} ${d.getHours()>=12?'PM':'AM'}`;
-        const formatTimeStr12hr = t => !t||!/^\d{2}:\d{2}$/.test(t)?"Invalid Time":formatTime12hr(new Date(0,0,0,...t.split(':')));
-        const getTimeOfDay = t => !t||!t.includes(':')?"":(t.split(':').map(Number)[0]<12?'Morning':t.split(':').map(Number)[0]<17?'Afternoon':'Evening');
-
-        // --- Main Display Logic ---
-        function displayDay(selectedDay) {
-            const timeline = document.getElementById('day-timeline');
-            if (!timeline) return;
-            timeline.style.height = `${(21 - 8) * 60 * MINUTE_TO_PX}px`;
-            timeline.innerHTML = '<div class="timeline-line"></div>';
-            const classesForDay = schedule.filter(c=>c.day===selectedDay).sort((a,b)=>(a.startTime||"00:00").localeCompare(b.startTime||"00:00"));
-            const timeMarkers = new Set();
-            for(let i=8;i<=20;i++) timeMarkers.add(`${i}:00`);
-            classesForDay.forEach(c=>{if(c.startTime&&/^\d{2}:\d{2}$/.test(c.startTime)&&c.startTime.split(':')[1]!=='00')timeMarkers.add(c.startTime)});
-            timeMarkers.forEach(t=>{const m=document.createElement('div');m.className='time-marker';m.textContent=formatTimeStr12hr(t);m.style.top=`${(timeToMinutes(t)-480)*MINUTE_TO_PX}px`;timeline.appendChild(m)});
-            let lastCardBottom = -1;
-            classesForDay.forEach(c=>{const sM=timeToMinutes(c.startTime),eM=timeToMinutes(c.endTime);if(isNaN(sM)||isNaN(eM)||sM>=eM)return;let top=(sM-480)*MINUTE_TO_PX;if(top<lastCardBottom)top=lastCardBottom;let h=(eM-sM)*MINUTE_TO_PX;if(h<MIN_CARD_HEIGHT)h=MIN_CARD_HEIGHT;const card=document.createElement('div'),color=userCourses[c.courseName]||{bg:'rgba(107,114,128,0.1)',border:'#6B7280'};card.className='class-card-timeline';card.style.top=`${top}px`;card.style.height=`${h-CARD_GAP}px`;card.style.backgroundColor=color.bg;card.style.borderColor=color.border;card.dataset.classIndex=schedule.indexOf(c);card.innerHTML=`<div class="flex flex-col h-full justify-center"><p class="font-bold">${c.courseName||'N/A'} (${c.type||'N/A'})</p><p class="text-sm text-gray-600 mt-1">${c.instructor||'N/A'}</p><p class="text-xs text-gray-500 mt-2">${c.location||'N/A'}</p><p class="text-xs font-semibold mt-2" style="color:${color.border};">${formatTimeStr12hr(c.startTime)} - ${formatTimeStr12hr(c.endTime)}</p></div>`;card.addEventListener('click',()=>showClassModal(schedule.indexOf(c)));timeline.appendChild(card);lastCardBottom=top+h});
-        }
-        
-        function showClassModal(index){const c=schedule[index],color=userCourses[c.courseName]||{bg:'rgba(107,114,128,0.1)',border:'#6B7280'},m=document.getElementById('class-modal-content');m.innerHTML=`<button id="close-class-modal-btn" class="absolute top-4 right-6 text-3xl font-bold text-gray-400 hover:text-gray-800 transition">&times;</button><div class="p-2"><span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full" style="background-color:${color.bg};color:${color.border};border:1px solid ${color.border};">${c.type}</span><h2 class="text-3xl font-bold mt-3">${c.courseName}</h2><p class="text-md text-gray-500 mb-6">${c.subjectCode||''}</p><div class="space-y-4"><p><strong>Instructor:</strong> ${c.instructor}</p><p><strong>Time:</strong> ${formatTimeStr12hr(c.startTime)} - ${formatTimeStr12hr(c.endTime)}</p><p><strong>Location:</strong> ${c.location}</p></div></div>`;document.getElementById('class-modal').classList.remove('hidden');setTimeout(()=>m.classList.remove('scale-95','opacity-0'),10);document.getElementById('close-class-modal-btn').addEventListener('click',closeClassModal)}
-        const closeClassModal=()=>{const m=document.getElementById('class-modal-content');m.classList.add('scale-95','opacity-0');setTimeout(()=>document.getElementById('class-modal').classList.add('hidden'),200)};
-        const showBetaModal=()=>{document.getElementById('beta-modal').classList.remove('hidden');setTimeout(()=>document.getElementById('beta-modal-content').classList.remove('scale-95','opacity-0'),10)};
-        const closeBetaModal=()=>{document.getElementById('beta-modal-content').classList.add('scale-95','opacity-0');setTimeout(()=>document.getElementById('beta-modal').classList.add('hidden'),200)};
-        const showDeleteModal=()=>{document.getElementById('delete-modal').classList.remove('hidden');setTimeout(()=>document.getElementById('delete-modal-content').classList.remove('scale-95','opacity-0'),10)};
-        const closeDeleteModal=()=>{document.getElementById('delete-modal-content').classList.add('scale-95','opacity-0');setTimeout(()=>document.getElementById('delete-modal').classList.add('hidden'),200)};
-
-        function updateInfoCards(){const f=document.getElementById('first-class-card'),l=document.getElementById('last-class-card'),n=document.getElementById('next-class-card');if(!f||!l||!n)return;const s=document.querySelector('.glass-button.active');if(!s){const p=`<p class="text-lg font-semibold text-gray-500">Select a day.</p>`;f.innerHTML=p;l.innerHTML=p;n.innerHTML=p;return};const d=s.textContent,dayClasses=schedule.filter(c=>c.day===d).sort((a,b)=>(a.startTime||"").localeCompare(b.startTime||""));if(dayClasses.length>0){const first=dayClasses[0],last=dayClasses[dayClasses.length-1];f.innerHTML=`<p class="font-semibold">${first.courseName}</p><p><span class="font-semibold text-gray-500">${getTimeOfDay(first.startTime)}</span> at ${formatTimeStr12hr(first.startTime)}</p>`;l.innerHTML=`<p class="font-semibold">${last.courseName}</p><p><span class="font-semibold text-gray-500">${getTimeOfDay(last.startTime)}</span> at ${formatTimeStr12hr(last.startTime)}</p>`}else{const m=`<p class="text-lg font-semibold text-green-600">No classes.</p>`;f.innerHTML=m;l.innerHTML=m}const now=new Date(),cD=now.getDay()-1,cT=now.getHours()*60+now.getMinutes();let found=false;if(cD>=0&&cD<days.length){const rC=schedule.find(c=>c.day===days[cD]&&cT>=timeToMinutes(c.startTime)&&cT<timeToMinutes(c.endTime));if(rC){n.innerHTML=`<p class="font-semibold text-yellow-600 text-lg">In Session</p><p class="font-semibold">${rC.courseName}</p><p>Ends at ${formatTimeStr12hr(rC.endTime)}</p>`;found=true}if(!found){const nC=schedule.filter(c=>c.day===days[cD]&&timeToMinutes(c.startTime)>cT).sort((a,b)=>a.startTime.localeCompare(b.startTime))[0];if(nC){n.innerHTML=`<p class="font-semibold text-blue-600 text-lg">${nC.courseName}</p><p><strong>Today at ${formatTimeStr12hr(nC.startTime)}</strong></p><p class="text-sm">${nC.location}</p>`;found=true}}}if(!found)for(let i=1;i<=7;i++){const nD=(cD+i)%7,nDs=days[nD];if(nDs){const nC=schedule.filter(c=>c.day===nDs).sort((a,b)=>a.startTime.localeCompare(b.startTime))[0];if(nC){n.innerHTML=`<p class="font-semibold text-blue-600 text-lg">${nC.courseName}</p><p><strong>${nC.day} at ${formatTimeStr12hr(nC.startTime)}</strong></p><p class="text-sm">${nC.location}</p>`;found=true;break}}}if(!found&&schedule.length>0){n.innerHTML=`<p class="text-lg font-semibold text-green-600">All classes finished!</p>`}else if(!found&&schedule.length===0){n.innerHTML=`<p class="text-lg font-semibold text-green-600">No classes scheduled.</p>`}}
-        
-        function renderCourseLegend(){const l=document.getElementById('course-legend');let h='<h3 class="font-bold text-center mb-3">Course Legend</h3><div class="flex flex-wrap justify-center gap-x-6 gap-y-2">';for(const c in userCourses){const o=userCourses[c];h+=`<div class="flex items-center gap-2"><span class="w-4 h-4 rounded-full" style="background-color:${o.border};"></span><span class="text-sm">${c}</span></div>`}h+='</div>';l.innerHTML=h}
-        function setupDaySelector(){const c=document.getElementById('day-selector');c.innerHTML='';days.forEach(d=>{const b=document.createElement('button');b.className='glass-button px-4 py-2 rounded-full font-semibold';b.textContent=d;b.onclick=()=>{document.querySelectorAll('#day-selector button').forEach(btn=>btn.classList.remove('active'));b.classList.add('active');displayDay(d);updateInfoCards()};c.appendChild(b)})}
-        function setupThemeSwitcher(){const t=document.getElementById('theme-select'),s=localStorage.getItem('timetableTheme')||'theme-light';document.documentElement.className=s;t.value=s;t.addEventListener('change',e=>{const n=e.target.value;document.documentElement.className=n;localStorage.setItem('timetableTheme',n)})}
-        
-        function listenToTimetable(userId){if(unsubscribe)unsubscribe();const t=doc(db,"timetables",userId);unsubscribe=onSnapshot(t,d=>{const a=document.getElementById('auth-container'),p=document.getElementById('app-container'),i=document.getElementById('import-container');if(d.exists()&&d.data().schedule&&d.data().schedule.length>0){schedule=d.data().schedule;userCourses=d.data().courses||{};i.classList.add('hidden');p.classList.remove('hidden');a.classList.add('hidden');initializeAppView();startAppIntervals()}else{schedule=[];userCourses={};i.classList.remove('hidden');p.classList.add('hidden');a.classList.add('hidden');stopAppIntervals()}})}
-        
-        const startAppIntervals=()=>{if(clockInterval)clearInterval(clockInterval);if(infoInterval)clearInterval(infoInterval);clockInterval=setInterval(updateInfoCards,1000);infoInterval=setInterval(updateInfoCards,60000)};
-        const stopAppIntervals=()=>{clearInterval(clockInterval);clearInterval(infoInterval)};
-        
-        function initializeAppView(){setupDaySelector();renderCourseLegend();updateInfoCards();const t=new Date().getDay(),d=(t>0&&t<=6)?days[t-1]:'Mon',b=Array.from(document.querySelectorAll('#day-selector button')).find(b=>b.textContent===d);if(b)b.click()}
-
-        // --- Builder Logic ---
-        function showBuilderScreen(apiData=[]){document.getElementById('initial-import-view').classList.add('hidden');document.getElementById('review-view').classList.remove('hidden');tempSchedule=JSON.parse(JSON.stringify(apiData));tempCourses={};tempSchedule.forEach(c=>{if(c.courseName&&!tempCourses[c.courseName]){const r='#'+Math.floor(Math.random()*16777215).toString(16).padStart(6,'0');tempCourses[c.courseName]={border:r,bg:r+'20'}}});renderCourseEditor();renderDayTabs();renderDayContent('Mon')}
-        function renderCourseEditor(){const c=document.getElementById('course-list-editor');c.innerHTML='';for(const n in tempCourses){const d=document.createElement('div');d.className='flex items-center gap-2 p-2 bg-gray-50 rounded-md';d.innerHTML=`<input type="color" value="${tempCourses[n].border}" data-course-name="${n}" class="course-color-picker p-0 h-6 w-6 block bg-white border cursor-pointer rounded-md"><span class="flex-grow">${n}</span><button data-course-name="${n}" class="delete-course-btn text-red-500 hover:text-red-700 font-bold text-lg">&times;</button>`;c.appendChild(d)}}
-        function renderDayTabs(){const s=document.getElementById('schedule-day-tabs');s.innerHTML='';days.forEach(d=>{const b=document.createElement('button');b.className='day-tab-btn py-2 px-4 font-semibold';b.textContent=d;if(d==='Mon')b.classList.add('active');b.addEventListener('click',()=>{document.querySelectorAll('.day-tab-btn').forEach(btn=>btn.classList.remove('active'));b.classList.add('active');renderDayContent(d)});s.appendChild(b)})}
-        function renderDayContent(day){const s=document.getElementById('schedule-day-content');s.innerHTML='';const classes=tempSchedule.filter(c=>c.day===day).sort((a,b)=>(a.startTime||"").localeCompare(b.startTime||""));if(classes.length>0){classes.forEach(c=>{const d=document.createElement('div');d.className='flex items-center justify-between p-3 border-b';d.innerHTML=`<div><p class="font-bold">${c.courseName}</p><p class="text-sm text-gray-600">${c.instructor||'N/A'} @ ${c.location||'N/A'}</p><p class="text-xs text-gray-500">${formatTimeStr12hr(c.startTime)} - ${formatTimeStr12hr(c.endTime)}</p></div><div class="flex items-center gap-2"><button data-class='${JSON.stringify(c)}' class="edit-class-btn text-blue-500 hover:text-blue-700">Edit</button><button data-class='${JSON.stringify(c)}' class="delete-class-btn text-red-500 hover:text-red-700 font-bold text-lg">&times;</button></div>`;s.appendChild(d)})}else{s.innerHTML=`<p class="text-center text-gray-500 py-4">No classes for ${day}.</p>`}const b=document.createElement('button');b.textContent='+ Add Class to '+day;b.className='mt-4 w-full bg-gray-100 font-semibold py-2 rounded-lg hover:bg-gray-200 transition';b.addEventListener('click',()=>showAddClassModal(day));s.appendChild(b)}
-        function showAddClassModal(day,cls=null){const c=document.getElementById('class-course-select'),e=document.getElementById('add-class-error');e.textContent='';c.innerHTML='';if(Object.keys(tempCourses).length===0){c.innerHTML='<option disabled selected>Please add a course first</option>'}else{for(const n in tempCourses){const o=document.createElement('option');o.value=n;o.textContent=n;c.appendChild(o)}}const m=document.getElementById('add-class-modal-content');m.innerHTML=`<h3 class="text-xl font-bold mb-4">Add/Edit Class</h3><div class="space-y-4"><div><label class="font-semibold">Course</label><select id="class-course-select" class="w-full p-2 border rounded-md mt-1">${c.innerHTML}</select></div><div class="grid grid-cols-2 gap-4"><div><label class="font-semibold">Start Time (HH:MM)</label><input id="class-start-time" type="text" placeholder="e.g., 14:00" class="w-full p-2 border rounded-md mt-1"></div><div><label class="font-semibold">End Time (HH:MM)</label><input id="class-end-time" type="text" placeholder="e.g., 14:50" class="w-full p-2 border rounded-md mt-1"></div></div><div><label class="font-semibold">Instructor</label><input id="class-instructor" type="text" class="w-full p-2 border rounded-md mt-1"></div><div><label class="font-semibold">Location</label><input id="class-location" type="text" class="w-full p-2 border rounded-md mt-1"></div><div><label class="font-semibold">Type</label><select id="class-type-select" class="w-full p-2 border rounded-md mt-1"><option>Theory</option><option>Lab</option></select></div></div><p id="add-class-error" class="text-red-500 text-sm mt-4 text-center"></p><div class="mt-6 flex justify-end gap-4"><button id="cancel-add-class-btn" class="glass-button font-semibold py-2 px-4 rounded-lg">Cancel</button><button id="save-class-btn" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition">Save Class</button></div>`;document.getElementById('class-start-time').value=cls?cls.startTime:'';document.getElementById('class-end-time').value=cls?cls.endTime:'';document.getElementById('class-instructor').value=cls?cls.instructor:'';document.getElementById('class-location').value=cls?cls.location:'';document.getElementById('class-type-select').value=cls?cls.type:'Theory';if(cls)document.getElementById('class-course-select').value=cls.courseName;document.getElementById('save-class-btn').dataset.day=day;document.getElementById('cancel-add-class-btn').onclick=closeAddClassModal;document.getElementById('save-class-btn').onclick=saveClassHandler;const aM=document.getElementById('add-class-modal');aM.classList.remove('hidden');setTimeout(()=>m.classList.remove('scale-95','opacity-0'),10)}
-        const closeAddClassModal=()=>{document.getElementById('add-class-modal-content').classList.add('scale-95','opacity-0');setTimeout(()=>document.getElementById('add-class-modal').classList.add('hidden'),200);editingClass=null};
-        
-        function saveClassHandler(){const e=document.getElementById('add-class-error');e.textContent='';const d=document.getElementById('save-class-btn').dataset.day,c=document.getElementById('class-course-select').value,s=document.getElementById('class-start-time').value,en=document.getElementById('class-end-time').value,r=/^([01]\d|2[0-3]):([0-5]\d)$/;if(!c||c==='Please add a course first'){e.textContent="Please select a course.";return}if(!s||!en){e.textContent="Please enter both start and end time.";return}if(!r.test(s)||!r.test(en)){e.textContent="Please use HH:MM format.";return}if(timeToMinutes(s)>=timeToMinutes(en)){e.textContent="End time must be after start time.";return}const nC={day:d,courseName:c,startTime:s,endTime:en,instructor:document.getElementById('class-instructor').value,location:document.getElementById('class-location').value,type:document.getElementById('class-type-select').value};if(editingClass){const i=tempSchedule.findIndex(cl=>JSON.stringify(cl)===JSON.stringify(editingClass));if(i>-1)tempSchedule[i]=nC}else{tempSchedule.push(nC)}renderDayContent(d);closeAddClassModal()}
-
-        // --- NEW: API Import Logic ---
-        function processApiResponseData(apiData){if(!apiData||!apiData.timetable||!Array.isArray(apiData.timetable)){console.error("Invalid data from API:",apiData);throw new Error("Received invalid data from API.")}return apiData.timetable.map(c=>({courseName:c.courseName||"Unnamed",type:c.type||"N/A",instructor:c.instructor||"N/A",day:c.day||"Mon",startTime:c.startTime||"00:00",endTime:c.endTime||"00:00",location:c.location||"N/A"}))}
-        async function importFromVtopApi(){const l=document.getElementById('loading-container'),e=document.getElementById('import-error'),r=document.getElementById('reg-no-input').value,p=document.getElementById('password-input').value,s=document.getElementById('sem-id-input').value;if(!r||!p||!s){e.textContent="Please fill in all fields.";return}if(VTOP_API_KEY==='YOUR_API_KEY'){e.textContent="Error: VTOP_API_KEY is not set in the script.";return}l.classList.remove('hidden');e.textContent="";try{const payload={registration_number:r,password:p,sem_sub_id:s};const response=await fetch(VTOP_API_URL,{method:'POST',headers:{'Content-Type':'application/json','X-API-KEY':VTOP_API_KEY},body:JSON.stringify(payload)});if(!response.ok){const errText=await response.text();throw new Error(`API Error: ${response.status} - ${errText}`)}const data=await response.json(),processed=processApiResponseData(data);if(processed.length===0)throw new Error("API returned no classes. Check credentials/Semester ID.");showBuilderScreen(processed)}catch(err){console.error("API import failed:",err);e.textContent=`Import failed: ${err.message}. Is your local API server running?`}finally{l.classList.add('hidden')}}
-
-        // --- DOMContentLoaded: Main entry point ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const authContainer=document.getElementById('auth-container'),appContainer=document.getElementById('app-container'),importContainer=document.getElementById('import-container'),googleLoginBtn=document.getElementById('google-login-btn'),logoutBtn=document.getElementById('logout-btn'),deleteTimetableBtn=document.getElementById('delete-timetable-btn'),launchBuilderBtn=document.getElementById('launch-builder-btn'),confirmSaveBtn=document.getElementById('confirm-save-btn'),cancelBuildBtn=document.getElementById('cancel-build-btn'),addCourseBtn=document.getElementById('add-course-btn'),courseListEditor=document.getElementById('course-list-editor'),scheduleDayContent=document.getElementById('schedule-day-content'),newCourseNameInput=document.getElementById('new-course-name'),newCourseColorInput=document.getElementById('new-course-color'),importTabs=document.getElementById('import-tabs'),classModal=document.getElementById('class-modal'),betaModal=document.getElementById('beta-modal'),deleteModal=document.getElementById('delete-modal'),addClassModal=document.getElementById('add-class-modal'),cancelDeleteBtn=document.getElementById('cancel-delete-btn'),confirmDeleteBtn=document.getElementById('confirm-delete-btn'),apiImportForm=document.getElementById('api-import-form');
-
-            onAuthStateChanged(auth, u => { if(u){listenToTimetable(u.uid)}else{if(unsubscribe)unsubscribe();authContainer.classList.remove('hidden');appContainer.classList.add('hidden');importContainer.classList.add('hidden');stopAppIntervals()}});
-            
-            setupThemeSwitcher();
-            apiImportForm.addEventListener('submit',e=>{e.preventDefault();importFromVtopApi()});
-            document.getElementById('beta-button').addEventListener('click',showBetaModal);
-            classModal.addEventListener('click',e=>{if(e.target===classModal)closeClassModal()});
-            betaModal.addEventListener('click',e=>{if(e.target===betaModal)closeBetaModal()});
-            deleteModal.addEventListener('click',e=>{if(e.target===deleteModal)closeDeleteModal()});
-            addClassModal.addEventListener('click',e=>{if(e.target===addClassModal)closeAddClassModal()});
-            cancelDeleteBtn.addEventListener('click',closeDeleteModal);
-
-            googleLoginBtn.addEventListener('click',()=>{const p=new GoogleAuthProvider();signInWithPopup(auth,p).catch(e=>{console.error("Sign-in error",e);document.getElementById('auth-error').textContent="Sign-in failed: "+e.code})});
-            logoutBtn.addEventListener('click',()=>signOut(auth));
-            deleteTimetableBtn.addEventListener('click',showDeleteModal);
-            
-            confirmDeleteBtn.addEventListener('click',async()=>{const u=auth.currentUser;if(!u)return;const t=doc(db,"timetables",u.uid);try{await deleteDoc(t);closeDeleteModal()}catch(e){console.error("Error deleting:",e);closeDeleteModal()}});
-            
-            importTabs.addEventListener('click',e=>{if(e.target.tagName!=='BUTTON')return;document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));e.target.classList.add('active');document.querySelectorAll('.tab-content').forEach(c=>c.classList.add('hidden'));document.getElementById(`tab-content-${e.target.dataset.tab}`).classList.remove('hidden')});
-            
-            launchBuilderBtn.addEventListener('click',()=>{showBuilderScreen([])});
-            cancelBuildBtn.addEventListener('click',()=>{window.location.reload()});
-            
-            addCourseBtn.addEventListener('click',()=>{const n=newCourseNameInput.value.trim();if(n&&!tempCourses[n]){const c=newCourseColorInput.value;tempCourses[n]={border:c,bg:c+'20'};newCourseNameInput.value='';renderCourseEditor()}});
-            courseListEditor.addEventListener('click',e=>{if(e.target.classList.contains('delete-course-btn')){const n=e.target.dataset.courseName;delete tempCourses[n];tempSchedule=tempSchedule.filter(c=>c.courseName!==n);renderCourseEditor();const a=document.querySelector('.day-tab-btn.active');if(a)renderDayContent(a.textContent)}if(e.target.classList.contains('course-color-picker')){e.target.addEventListener('input',ev=>{const n=ev.target.dataset.courseName,c=ev.target.value;if(tempCourses[n]){tempCourses[n].border=c;tempCourses[n].bg=c+'20'}},{once:true})}});
-            scheduleDayContent.addEventListener('click',e=>{const editBtn=e.target.closest('.edit-class-btn'),delBtn=e.target.closest('.delete-class-btn');if(editBtn){const c=JSON.parse(editBtn.dataset.class);editingClass=c;showAddClassModal(c.day,c)}if(delBtn){const c=JSON.parse(delBtn.dataset.class);tempSchedule=tempSchedule.filter(cl=>JSON.stringify(cl)!==JSON.stringify(c));renderDayContent(c.day)}});
-            
-            confirmSaveBtn.addEventListener('click',async()=>{const save=async u=>{if(!u)return;try{const t=doc(db,"timetables",u.uid);await setDoc(t,{schedule:tempSchedule,courses:tempCourses});window.location.reload()}catch(e){console.error("Save error:",e)}};if(auth.currentUser)await save(auth.currentUser);else{const p=new GoogleAuthProvider();try{const r=await signInWithPopup(auth,p);await save(r.user)}catch(e){console.error("Sign-in during save error:",e)}}});
-        });
-    </script>
+    <script src="catlogic.js" type="module"></script>
 </body>
 </html>
+
