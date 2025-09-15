@@ -6,26 +6,26 @@
     <title>Interactive VIT-AP Timetable</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://i.imgur.com/Ozt6V5X.png">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="./Screenshot/favicon.png">
 </head>
-<body class="p-4 md:p-8">
+<body>
 
-    <!-- Auth Container -->
-    <div id="auth-container" class="hidden flex items-center justify-center min-h-screen">
-        <div class="card-bg p-8 rounded-2xl shadow-lg max-w-md w-full text-center">
-            <h1 class="text-3xl font-bold brand-gradient-text">Welcome</h1>
-            <p class="text-gray-500 mt-2">Sign in to save and view your personal timetable.</p>
-            <button id="google-login-btn" class="mt-8 w-full bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition flex items-center justify-center gap-2">
-                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="m6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="m24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.222 0-9.618-3.67-11.283-8.591l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C42.021 35.591 44 30.138 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
-                Sign in with Google
+    <!-- Login Page -->
+    <div id="login-container" class="hidden">
+        <div class="login-card">
+            <h1 class="text-3xl md:text-4xl font-bold brand-gradient-text mb-2">VIT-AP Timetable</h1>
+            <p class="text-gray-500 mb-8">Sign in to access your interactive schedule.</p>
+            <button id="google-login-btn" class="google-login-button">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691c-1.222 2.183-1.926 4.672-1.926 7.309c0 2.637.704 5.126 1.926 7.309l-5.657 5.657C.883 31.896 0 28.082 0 24c0-4.082.883-7.896 2.343-11.357l3.963 3.049z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-5.657-5.657C30.078 35.213 27.225 36 24 36c-5.223 0-9.641-3.341-11.303-7.961l-5.657 5.657C10.038 40.023 16.499 44 24 44z"/><path fill="#1565C0" d="M43.611 20.083H24v8h11.303c-0.792 2.237-2.231 4.16-4.087 5.571l5.657 5.657C41.074 35.845 44 30.345 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
+                <span>Sign in with Google</span>
             </button>
-            <p id="auth-error" class="text-red-500 mt-4 text-sm"></p>
         </div>
     </div>
-    
-    <!-- App Container -->
-    <div id="app-container" class="hidden max-w-7xl mx-auto relative">
+
+    <!-- Main App Container -->
+    <div id="app-container" class="max-w-7xl mx-auto relative hidden p-4 md:p-8">
+        
         <div class="header-controls">
             <div id="beta-button" class="beta-logo">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L9.5 8.5L4 11L9.5 13.5L12 19L14.5 13.5L20 11L14.5 8.5L12 3Z"/></svg>
@@ -41,18 +41,17 @@
             </div>
         </div>
 
-        <header class="mb-8 text-center pt-24 md:pt-0">
-            <h1 class="text-4xl md:text-5xl font-bold brand-gradient-text">My VIT-AP Timetable</h1>
-            <p class="text-gray-500 mt-2">Your interactive schedule for the semester.</p>
-        </header>
-
-        <div id="cat-clock" class="cat-clock">
-            <span id="clock-text">--:-- --</span>
+        <div id="user-info">
+            <!-- User info will be injected here -->
         </div>
 
-        <div class="user-controls">
-            <button id="delete-timetable-btn" class="bg-red-500 text-white font-semibold text-sm py-2 px-4 rounded-full hover:bg-red-600 transition">Delete Timetable</button>
-            <button id="logout-btn" class="glass-button text-sm font-semibold py-2 px-4 rounded-full">Logout</button>
+        <header class="mb-8 text-center pt-24 md:pt-0">
+            <h1 class="text-4xl md:text-5xl font-bold brand-gradient-text">My VIT-AP Timetable</h1>
+            <p id="welcome-message" class="text-gray-500 mt-2">Your interactive schedule for the semester.</p>
+        </header>
+
+        <div class="cat-clock">
+            <span id="clock-text">--:-- --</span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -70,7 +69,7 @@
             </div>
         </div>
         
-        <div id="day-selector-container" class="card-bg p-4 rounded-2xl mb-8">
+        <div class="card-bg p-4 rounded-2xl mb-8">
             <div id="day-selector" class="flex flex-wrap justify-center gap-3"></div>
         </div>
 
@@ -79,151 +78,29 @@
         <div id="timetable-container" class="card-bg p-4 rounded-2xl">
             <div id="day-timeline" class="day-timeline relative"></div>
         </div>
+
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>Created by Anuj Tiwari</p>
+            <div class="flex justify-center gap-4 mt-2">
+                <a href="https://github.com/anuj7iwari" target="_blank" class="hover:text-blue-500 transition">GitHub</a>
+                <span>&bull;</span>
+                <a href="mailto:anuj7iwari@gmail.com" class="hover:text-blue-500 transition">Mail</a>
+            </div>
+        </footer>
+
+        <!-- Modals -->
+        <div id="class-modal" class="modal-backdrop hidden">
+            <div class="card-bg rounded-2xl shadow-2xl w-11/12 max-w-md p-8 relative transform transition-all duration-300 scale-95 opacity-0" id="class-modal-content"></div>
+        </div>
+        <div id="beta-modal" class="modal-backdrop hidden">
+            <div class="card-bg rounded-2xl shadow-2xl w-11/12 max-w-sm p-8 relative transform transition-all duration-300 scale-95 opacity-0 text-center" id="beta-modal-content">
+                <p class="text-xl font-bold brand-gradient-text">Psst!</p>
+                <p class="mt-2 text-gray-500">Cats are working in the backend, do not disturb them.</p>
+            </div>
+        </div>
     </div>
     
-    <!-- Import Container -->
-    <div id="import-container" class="hidden max-w-5xl mx-auto mt-8">
-         <div class="card-bg p-6 rounded-2xl">
-            <h2 class="text-2xl font-bold text-center brand-gradient-text">Import Your Timetable</h2>
-            
-            <div id="initial-import-view">
-                <div id="import-tabs" class="border-b border-gray-200 mt-4 mb-6 flex justify-center">
-                    <button data-tab="easy" class="tab-btn active py-2 px-4 font-semibold">Easy Import (Bookmarklet)</button>
-                    <button data-tab="manual" class="tab-btn py-2 px-4 font-semibold">Manual Builder</button>
-                </div>
-
-                <!-- Easy Import Tab -->
-                <div id="tab-content-easy" class="tab-content prose max-w-none">
-                     <h4 class="font-bold">One-Click Timetable Import</h4>
-                    <p>This is the easiest and most recommended way to import your schedule.</p>
-                    <ol>
-                        <li><strong>Drag this link to your bookmarks bar:</strong>
-                            <a id="bookmarklet-link" href="#" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg inline-block">Scrape VTOP Timetable</a>
-                        </li>
-                        <li>Log in to VTOP and navigate to your timetable page.</li>
-                        <li>Click the "Scrape VTOP Timetable" bookmark you just created.</li>
-                    </ol>
-                    <p>You will be automatically redirected back here to review and save your schedule. It's that simple!</p>
-                </div>
-
-                <!-- Manual Builder Tab -->
-                <div id="tab-content-manual" class="tab-content hidden">
-                    <p class="text-center text-gray-500 mb-4">Use the builder below to manually create your schedule from scratch.</p>
-                     <div class="text-center">
-                        <button id="launch-builder-btn" class="bg-blue-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-600 transition">Launch Schedule Builder</button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Review / Builder View -->
-            <div id="review-view" class="hidden">
-                 <h3 class="text-xl font-bold text-center text-gray-800">Build Your Schedule</h3>
-                 <p class="text-center text-gray-500 mb-6 text-sm">Add your courses first, then build your weekly schedule day by day.</p>
-                
-                 <!-- Course Manager -->
-                 <div class="mb-8">
-                    <h4 class="font-bold text-lg mb-2">1. Manage Courses</h4>
-                    <div class="card-bg p-4 rounded-lg">
-                        <div id="course-list-editor" class="mb-4 space-y-2"></div>
-                        <div class="flex gap-2">
-                            <input id="new-course-name" type="text" placeholder="New Course Name" class="flex-grow p-2 border rounded-md">
-                            <input id="new-course-color" type="color" value="#4285F4" class="p-1 h-10 w-10 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none">
-                            <button id="add-course-btn" class="bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300 transition">Add</button>
-                        </div>
-                    </div>
-                 </div>
-
-                 <!-- Schedule Builder -->
-                 <div>
-                    <h4 class="font-bold text-lg mb-2">2. Weekly Schedule</h4>
-                    <div class="card-bg p-4 rounded-lg">
-                        <div id="schedule-day-tabs" class="border-b border-gray-200 flex"></div>
-                        <div id="schedule-day-content" class="mt-4"></div>
-                    </div>
-                 </div>
-
-                 <div class="flex gap-4 mt-8">
-                    <button id="cancel-build-btn" class="w-full bg-gray-200 text-gray-700 font-semibold py-3 rounded-lg hover:bg-gray-300 transition">Cancel</button>
-                    <button id="confirm-save-btn" class="w-full bg-green-500 text-white font-semibold py-3 rounded-lg hover:bg-green-600 transition">Save Timetable</button>
-                 </div>
-            </div>
-         </div>
-    </div>
-
-
-    <!-- Creator Footer -->
-    <footer class="text-center mt-12 text-gray-500 text-sm">
-        <p>Created by Anuj Tiwari</p>
-        <div class="flex justify-center gap-4 mt-2">
-            <a href="https://github.com/anuj7iwari" target="_blank" class="hover:text-blue-500 transition">GitHub</a>
-            <span>&bull;</span>
-            <a href="mailto:anuj7iwari@gmail.com" class="hover:text-blue-500 transition">Mail</a>
-        </div>
-    </footer>
-
-    <!-- Modals -->
-    <div id="class-modal" class="modal-backdrop hidden">
-        <div class="card-bg rounded-2xl shadow-2xl w-11/12 max-w-md p-8 relative transform transition-all duration-300 scale-95 opacity-0" id="class-modal-content"></div>
-    </div>
-    <div id="beta-modal" class="modal-backdrop hidden">
-        <div class="card-bg rounded-2xl shadow-2xl w-11/12 max-w-sm p-8 relative transform transition-all duration-300 scale-95 opacity-0 text-center" id="beta-modal-content">
-            <p class="text-xl font-bold brand-gradient-text">Psst!</p>
-            <p class="mt-2 text-gray-500">Cats are working in the backend, do not disturb them.</p>
-        </div>
-    </div>
-    <div id="delete-modal" class="modal-backdrop hidden">
-        <div class="card-bg rounded-2xl shadow-2xl w-11/12 max-w-sm p-8 relative transform transition-all duration-300 scale-95 opacity-0 text-center" id="delete-modal-content">
-            <h3 class="text-xl font-bold text-gray-800">Are you sure?</h3>
-            <p class="mt-2 text-gray-500">This will permanently delete your timetable. This action cannot be undone.</p>
-            <div class="mt-6 flex justify-center gap-4">
-                <button id="cancel-delete-btn" class="glass-button font-semibold py-2 px-4 rounded-lg">Cancel</button>
-                <button id="confirm-delete-btn" class="bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 transition">Yes, Delete It</button>
-            </div>
-        </div>
-    </div>
-    <div id="add-class-modal" class="modal-backdrop hidden">
-        <div class="card-bg rounded-2xl shadow-2xl w-11/12 max-w-lg p-8 relative transform transition-all duration-300 scale-95 opacity-0" id="add-class-modal-content">
-            <h3 class="text-xl font-bold text-gray-800 mb-4">Add/Edit Class</h3>
-            <div class="space-y-4">
-                <div>
-                    <label class="font-semibold text-gray-700">Course</label>
-                    <select id="class-course-select" class="w-full p-2 border rounded-md mt-1"></select>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="font-semibold text-gray-700">Start Time (HH:MM)</label>
-                        <input id="class-start-time" type="text" placeholder="e.g., 14:00" class="w-full p-2 border rounded-md mt-1">
-                    </div>
-                    <div>
-                        <label class="font-semibold text-gray-700">End Time (HH:MM)</label>
-                        <input id="class-end-time" type="text" placeholder="e.g., 14:50" class="w-full p-2 border rounded-md mt-1">
-                    </div>
-                </div>
-                <div>
-                    <label class="font-semibold text-gray-700">Instructor</label>
-                    <input id="class-instructor" type="text" class="w-full p-2 border rounded-md mt-1">
-                </div>
-                <div>
-                    <label class="font-semibold text-gray-700">Location</label>
-                    <input id="class-location" type="text" class="w-full p-2 border rounded-md mt-1">
-                </div>
-                 <div>
-                    <label class="font-semibold text-gray-700">Type</label>
-                    <select id="class-type-select" class="w-full p-2 border rounded-md mt-1">
-                        <option>Theory</option>
-                        <option>Lab</option>
-                    </select>
-                </div>
-            </div>
-            <p id="add-class-error" class="text-red-500 text-sm mt-4 text-center"></p>
-            <div class="mt-6 flex justify-end gap-4">
-                <button id="cancel-add-class-btn" class="glass-button font-semibold py-2 px-4 rounded-lg">Cancel</button>
-                <button id="save-class-btn" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition">Save Class</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="catlogic.js" type="module"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
 
