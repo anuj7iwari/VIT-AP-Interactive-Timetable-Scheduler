@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// Your web app's Firebase configuration
+
 const firebaseConfig = {
   apiKey: "AIzaSyDguREMxNYeUnBysfIyB6cCaGp8k2ZypbY",
   authDomain: "vit-ap-easy-timetable.firebaseapp.com",
@@ -12,7 +12,7 @@ const firebaseConfig = {
   measurementId: "G-H24YMP7MRT"
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
@@ -37,7 +37,7 @@ function handleSignOut() {
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // User is signed in
+    
     loginContainer.style.display = 'none';
     appContainer.classList.remove('hidden');
     
@@ -51,16 +51,16 @@ onAuthStateChanged(auth, (user) => {
     
     initializeAppLogic();
   } else {
-    // User is signed out
+    
     loginContainer.style.display = 'flex';
     appContainer.classList.add('hidden');
   }
 });
 
-// We wrap the original app logic in a function to call it after login.
+
 let appInitialized = false;
 function initializeAppLogic() {
-    if (appInitialized) return; // Prevent re-initialization
+    if (appInitialized) return; 
     appInitialized = true;
 
   const schedule = [
@@ -251,7 +251,7 @@ function initializeAppLogic() {
           clockText.textContent = phrase;
           setTimeout(() => {
               phraseIsActive = false;
-              updateClock(); // Immediately update clock after phrase disappears
+              updateClock(); 
           }, 10000);
       }
   }
@@ -385,7 +385,7 @@ function initializeAppLogic() {
   const now = new Date();
   let currentDayIndex = now.getDay() - 1; // Monday = 0, Sunday = -1
   if (currentDayIndex < 0 || currentDayIndex >= days.length) {
-      currentDayIndex = 0; // Default to Monday for Sunday or any errors
+      currentDayIndex = 0; 
   }
   
   const dayButtons = document.querySelectorAll('#day-selector button');
@@ -399,3 +399,4 @@ function initializeAppLogic() {
   setInterval(showCatPhrase, 60000);
   setInterval(updateInfoCards, 60000);
 }
+
