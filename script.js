@@ -63,31 +63,93 @@ function initializeAppLogic() {
     if (appInitialized) return; 
     appInitialized = true;
 
-  const schedule = [
+   const schedule = [
+
       { day: 'Mon', startTime: '14:00', endTime: '14:50', courseName: 'Modern Physics', subjectCode: 'T2-PHY1008', instructor: 'SARONATH HALDER', location: 'Academic Block 2 (AB-2) - ETH-G06', type: 'Theory' },
-      { day: 'Tue', startTime: '10:00', endTime: '11:40', courseName: 'Calculus for Engineers', subjectCode: 'MAT1001', instructor: 'Saikat Roy', location: 'Academic Block 1 (AB-1) - ELA-G22', type: 'Lab' },
-      { day: 'Tue', startTime: '14:00', endTime: '14:50', courseName: 'Problem Solving using Python', subjectCode: 'F2-CSE1012', instructor: 'Ajay Dagar', location: 'Academic Block 1 (AB-1) - ETH-412', type: 'Theory' },
-      { day: 'Tue', startTime: '15:00', endTime: '16:40', courseName: 'Modern Physics', subjectCode: 'A2-PHY1008', instructor: 'SARONATH HALDER', location: 'Academic Block 2 (AB-2) - ETH-G06', type: 'Theory' },
-      { day: 'Tue', startTime: '17:30', endTime: '18:20', courseName: 'Calculus for Engineers', subjectCode: 'C2-MAT1001', instructor: 'Varunkumar Merugu', location: 'Academic Block 1 (AB-1) - ETH-134', type: 'Theory' },
-      { day: 'Tue', startTime: '18:20', endTime: '19:00', courseName: 'Digital Logic Design', subjectCode: 'TDO2-ECE1003', instructor: 'Kharwar Vikas Vishnu', location: 'Academic Block 1 (AB-1) - ETH-420', type: 'Theory' },
-      { day: 'Wed', startTime: '10:00', endTime: '11:40', courseName: 'Modern Physics', subjectCode: 'PHY1008', instructor: 'S Dasaradha Ramarao', location: 'CB Block - ELA-224', type: 'Lab' },
-      { day: 'Wed', startTime: '14:00', endTime: '14:50', courseName: 'Digital Logic Design', subjectCode: 'D2-ECE1003', instructor: 'Kharwar Vikas Vishnu', location: 'Academic Block 1 (AB-1) - ETH-420', type: 'Theory' },
-      { day: 'Wed', startTime: '15:00', endTime: '16:40', courseName: 'Problem Solving using Python', subjectCode: 'F2-CSE1012', instructor: 'Ajay Dagar', location: 'Academic Block 1 (AB-1) - ETH-416', type: 'Theory' },
-      { day: 'Thu', startTime: '11:50', endTime: '13:30', courseName: 'Problem Solving using Python', subjectCode: 'CSE1012', instructor: 'Praveen Maurya', location: 'Academic Block 1 (AB-1) - ELA-G03', type: 'Lab' },
+
+
+
+
+
+
+
+
+      { day: 'Tue', startTime: '09:40', endTime: '11:30', courseName: 'Matlab', subjectCode: 'MAT1001', instructor: 'Saikat Roy', location: 'Academic Block 1 (AB-1) - ELA-G22 (Online)', type: 'Lab' },
+      
+      { day: 'Tue', startTime: '14:00', endTime: '14:50', courseName: 'Problem Solving using Python', subjectCode: 'F2-CSE1012', instructor: 'Ajay Dagar', location: 'Academic Block 1 (AB-1) - ETH-416', type: 'Theory' },
+
+      { day: 'Tue', startTime: '15:00', endTime: '15:50', courseName: 'Modern Physics', subjectCode: 'A2-PHY1008', instructor: 'SARONATH HALDER', location: 'Academic Block 2 (AB-2) - ETH-G06', type: 'Theory' },
+
+      { day: 'Tue', startTime: '17:00', endTime: '17:50', courseName: 'Calculus for Engineers', subjectCode: 'C2-MAT1001', instructor: 'Varunkumar Merugu', location: 'Academic Block 1 (AB-1) - ETH-134', type: 'Theory' },
+
+
+
+
+
+
+
+
+      { day: 'Wed', startTime: '09:50', endTime: '11:30', courseName: 'Modern Physics', subjectCode: 'PHY1008', instructor: 'S Dasaradha Ramarao', location: 'CB Block - ELA-224', type: 'Lab' },
+
+      { day: 'Wed', startTime: '14:00', endTime: '14:50', courseName: 'Digital Logic Design', subjectCode: 'D2-ECE-1003', instructor: 'Kharwar Vikas Vishnu', location: 'Academic Block 1 (AB-1) - ETH-420', type: 'Theory' },
+
+      { day: 'Wed', startTime: '15:00', endTime: '15:50', courseName: 'Problem Solving using Python', subjectCode: 'F2-CSE1012', instructor: 'Ajay Dagar', location: 'Academic Block 1 (AB-1) - ETH-416', type: 'Theory' },
+
+
+
+
+
+
+
+
+      { day: 'Thu', startTime: '11:40', endTime: '13:10', courseName: 'Problem Solving using Python', subjectCode: 'CSE1012', instructor: 'Praveen Maurya', location: 'Academic Block 1 (AB-1) - ELA-G03', type: 'Lab' },
+
       { day: 'Thu', startTime: '15:00', endTime: '15:50', courseName: 'Calculus for Engineers', subjectCode: 'C2-MAT1001', instructor: 'Varunkumar Merugu', location: 'Academic Block 1 (AB-1) - ETH-134', type: 'Theory' },
-      { day: 'Thu', startTime: '15:50', endTime: '17:30', courseName: 'Modern Physics', subjectCode: 'A2-PHY1008', instructor: 'SARONATH HALDER', location: 'Academic Block 2 (AB-2) - ETH-G06', type: 'Theory' },
-      { day: 'Thu', startTime: '17:30', endTime: '18:20', courseName: 'Digital Logic Design', subjectCode: 'D2-ECE1003', instructor: 'Kharwar Vikas Vishnu', location: 'Academic Block 1 (AB-1) - ETH-420', type: 'Theory' },
-      { day: 'Thu', startTime: '18:20', endTime: '19:00', courseName: 'Problem Solving using Python', subjectCode: 'TFF2-CSE1012', instructor: 'Ajay Dagar', location: 'Academic Block 1 (AB-1) - ETH-416', type: 'Theory' },
-      { day: 'Fri', startTime: '10:00', endTime: '11:40', courseName: 'Digital Logic Design', subjectCode: 'ECE1003', instructor: 'Atul Shankar Mani Tripathi', location: 'Academic Block 1 (AB-1) - ELA-314', type: 'Lab' },
-      { day: 'Fri', startTime: '14:00', endTime: '14:50', courseName: 'Calculus for Engineers', subjectCode: 'TC2-MAT1001', instructor: 'Varunkumar Merugu', location: 'Academic Block 1 (AB-1) - ETH-G06', type: 'Theory' },
-      { day: 'Fri', startTime: '17:00', endTime: '18:40', courseName: 'Modern Physics', subjectCode: 'A2-PHY1008', instructor: 'SARONATH HALDER', location: 'Academic Block 2 (AB-2) - ETH-G06', type: 'Theory' },
-      { day: 'Fri', startTime: '18:40', endTime: '20:00', courseName: 'Problem Solving using Python', subjectCode: 'TF2-CSE1012', instructor: 'Ajay Dagar', location: 'Academic Block 1 (AB-1) - ETH-416', type: 'Theory' },
-      { day: 'Sat', startTime: '10:00', endTime: '13:20', courseName: 'Ethics and Values', subjectCode: 'MGT1001', instructor: 'Naveen Kumar Chenupally', location: 'Online - ONL', type: 'Lab' },
-      { day: 'Sat', startTime: '14:00', endTime: '14:50', courseName: 'Digital Logic Design', subjectCode: 'TD2-ECE1003', instructor: 'Kharwar Vikas Vishnu', location: 'Academic Block 1 (AB-1) - ETH-420', type: 'Theory' },
-      { day: 'Sat', startTime: '15:00', endTime: '16:40', courseName: 'Digital Logic Design', subjectCode: 'D2-ECE1003', instructor: 'Kharwar Vikas Vishnu', location: 'Academic Block 1 (AB-1) - ETH-420', type: 'Theory' },
-      { day: 'Sat', startTime: '16:40', endTime: '17:30', courseName: 'Problem Solving using Python', subjectCode: 'F2-CSE1012', instructor: 'Ajay Dagar', location: 'Academic Block 1 (AB-1) - ETH-416', type: 'Theory' },
-      { day: 'Sat', startTime: '17:30', endTime: '18:20', courseName: 'Calculus for Engineers', subjectCode: 'C2-MAT1001', instructor: 'Varunkumar Merugu', location: 'Academic Block 1 (AB-1) - ETH-134', type: 'Theory' },
+
+      { day: 'Thu', startTime: '16:00', endTime: '16:50', courseName: 'Modern Physics', subjectCode: 'A2-PHY1008', instructor: 'SARONATH HALDER', location: 'Academic Block 2 (AB-2) - ETH-G06', type: 'Theory' },
+
+      { day: 'Thu', startTime: '17:00', endTime: '17:50', courseName: 'Digital Logic Design', subjectCode: 'D2-ECE1003', instructor: 'Kharwar Vikas Vishnu', location: 'Academic Block 1 (AB-1) - ETH-420', type: 'Theory' },
+
+
+
+
+
+
+
+
+      { day: 'Fri', startTime: '09:50', endTime: '11:30', courseName: 'Digital Logic Design', subjectCode: 'ECE1003', instructor: 'Atul Shankar Mani Tripathi', location: 'Academic Block 1 (AB-1) - ELA-314', type: 'Lab' },
+
+      { day: 'Fri', startTime: '14:00', endTime: '14:50', courseName: 'Calculus for Engineers', subjectCode: 'TC2-MAT1001', instructor: 'Varunkumar Merugu', location: 'Academic Block 1 (AB-1) - ETH-134', type: 'Theory' },
+
+      { day: 'Fri', startTime: '16:00', endTime: '16:50', courseName: 'Modern Physics', subjectCode: 'A2-PHY1008', instructor: 'SARONATH HALDER', location: 'Academic Block 2 (AB-2) - ETH-G06', type: 'Theory' },
+
+      { day: 'Fri', startTime: '17:00', endTime: '17:50', courseName: 'Problem Solving using Python', subjectCode: 'TF2-CSE1012', instructor: 'Ajay Dagar', location: 'Academic Block 1 (AB-1) - ETH-416', type: 'Theory' },
+
+
+
+
+
+
+
+
+
+      { day: 'Sat', startTime: '09:50', endTime: '11:30', courseName: 'Ethics and Values', subjectCode: 'MGT1001', instructor: 'Naveen Kumar Chenupally', location: 'Online - ONL', type: 'Lab' },
+
+      { day: 'Sat', startTime: '14:00', endTime: '15:50', courseName: 'Digital Logic Design', subjectCode: 'TD2-ECE1003', instructor: 'Kharwar Vikas Vishnu', location: 'Academic Block 1 (AB-1) - ETH-420', type: 'Theory' },
+
+      { day: 'Sat', startTime: '16:00', endTime: '16:50', courseName: 'Problem Solving using Python', subjectCode: 'F2-CSE1012', instructor: 'Ajay Dagar', location: 'Academic Block 1 (AB-1) - ETH-416', type: 'Theory' },
+
+      { day: 'Sat', startTime: '17:00', endTime: '17:50', courseName: 'Calculus for Engineers', subjectCode: 'C2-MAT1001', instructor: 'Varunkumar Merugu', location: 'Academic Block 1 (AB-1) - ETH-134', type: 'Theory' },
   ];
+  
+  const userCourses = {
+      'Problem Solving using Python': { bg: 'rgba(66, 133, 244, 0.1)', border: '#4285F4', text: '#2a56c8' },
+      'Calculus for Engineers': { bg: 'rgba(155, 114, 203, 0.1)', border: '#9b72cb', text: '#6b439c' },
+      'Modern Physics': { bg: 'rgba(52, 168, 83, 0.1)', border: '#34A853', text: '#1a7337' },
+      'Digital Logic Design': { bg: 'rgba(234, 67, 53, 0.1)', border: '#EA4335', text: '#b3261e' },
+      'Ethics and Values': { bg: 'rgba(251, 188, 5, 0.1)', border: '#FBBC05', text: '#e39a00' },
+      'Matlab': { bg: 'rgba(123, 0, 255, 0.1)', border: '#7b00ffff', text: '#7300ffff' },
+  };
   
   const userCourses = {
       'Problem Solving using Python': { bg: 'rgba(66, 133, 244, 0.1)', border: '#4285F4', text: '#2a56c8' },
@@ -399,4 +461,5 @@ function initializeAppLogic() {
   setInterval(showCatPhrase, 60000);
   setInterval(updateInfoCards, 60000);
 }
+
 
