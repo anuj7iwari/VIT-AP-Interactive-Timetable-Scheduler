@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDguREMxNYeUnBysfIyB6cCaGp8k2ZypbY",
   authDomain: "vit-ap-easy-timetable.firebaseapp.com",
@@ -12,7 +12,7 @@ const firebaseConfig = {
   measurementId: "G-H24YMP7MRT"
 };
 
-
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
@@ -37,7 +37,7 @@ function handleSignOut() {
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    
+    // User is signed in
     loginContainer.style.display = 'none';
     appContainer.classList.remove('hidden');
     
@@ -51,7 +51,7 @@ onAuthStateChanged(auth, (user) => {
     
     initializeAppLogic();
   } else {
-    
+    // User is signed out
     loginContainer.style.display = 'flex';
     appContainer.classList.add('hidden');
   }
@@ -63,7 +63,7 @@ function initializeAppLogic() {
     if (appInitialized) return; 
     appInitialized = true;
 
-   const schedule = [
+  const schedule = [
 
       { day: 'Mon', startTime: '14:00', endTime: '14:50', courseName: 'Modern Physics', subjectCode: 'T2-PHY1008', instructor: 'SARONATH HALDER', location: 'Academic Block 2 (AB-2) - ETH-G06', type: 'Theory' },
 
@@ -149,14 +149,6 @@ function initializeAppLogic() {
       'Digital Logic Design': { bg: 'rgba(234, 67, 53, 0.1)', border: '#EA4335', text: '#b3261e' },
       'Ethics and Values': { bg: 'rgba(251, 188, 5, 0.1)', border: '#FBBC05', text: '#e39a00' },
       'Matlab': { bg: 'rgba(123, 0, 255, 0.1)', border: '#7b00ffff', text: '#7300ffff' },
-  };
-  
-  const userCourses = {
-      'Problem Solving using Python': { bg: 'rgba(66, 133, 244, 0.1)', border: '#4285F4', text: '#2a56c8' },
-      'Calculus for Engineers': { bg: 'rgba(155, 114, 203, 0.1)', border: '#9b72cb', text: '#6b439c' },
-      'Modern Physics': { bg: 'rgba(52, 168, 83, 0.1)', border: '#34A853', text: '#1a7337' },
-      'Digital Logic Design': { bg: 'rgba(234, 67, 53, 0.1)', border: '#EA4335', text: '#b3261e' },
-      'Ethics and Values': { bg: 'rgba(251, 188, 5, 0.1)', border: '#FBBC05', text: '#e39a00' },
   };
 
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -313,7 +305,7 @@ function initializeAppLogic() {
           clockText.textContent = phrase;
           setTimeout(() => {
               phraseIsActive = false;
-              updateClock(); 
+              updateClock(); // Immediately update clock after phrase disappears
           }, 10000);
       }
   }
@@ -447,7 +439,7 @@ function initializeAppLogic() {
   const now = new Date();
   let currentDayIndex = now.getDay() - 1; // Monday = 0, Sunday = -1
   if (currentDayIndex < 0 || currentDayIndex >= days.length) {
-      currentDayIndex = 0; 
+      currentDayIndex = 0; // Default to Monday for Sunday or any errors
   }
   
   const dayButtons = document.querySelectorAll('#day-selector button');
@@ -461,5 +453,3 @@ function initializeAppLogic() {
   setInterval(showCatPhrase, 60000);
   setInterval(updateInfoCards, 60000);
 }
-
-
