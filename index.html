@@ -1,88 +1,106 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <meta name="generator" content="Framer 04b9457">
-    <title>Dochain</title>
-    <meta name="description" content="Secure your documnet on block chain">
-
-    <!-- Meta Tags for Social Sharing & Search -->
-    <meta name="framer-search-index" content="https://framerusercontent.com/sites/0sFqkCC7EyYb8twlR7iKL/searchIndex-siHV12sXbqm8.json">
-    <meta name="framer-search-index-fallback" content="https://framerusercontent.com/sites/0sFqkCC7EyYb8twlR7iKL/searchIndex-eOeZFliT9rHs.json">
-    <meta name="framer-html-plugin" content="disable">
-    <link href="https://framerusercontent.com/images/xgI9dBgp56ioqIQDKNmzgCijm0k.png" rel="icon" media="(prefers-color-scheme: light)">
-    <link href="https://framerusercontent.com/images/xgI9dBgp56ioqIQDKNmzgCijm0k.png" rel="icon" media="(prefers-color-scheme: dark)">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Dochain">
-    <meta property="og:description" content="Secure your documnet on block chain">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Dochain">
-    <meta name="twitter:description" content="Secure your documnet on block chain">
-    <meta name="robots" content="max-image-preview:large">
-    <link rel="canonical" href="https://dochain.framer.ai/">
-    <meta property="og:url" content="https://dochain.framer.ai/">
-
-    <!-- External Stylesheet -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive VIT-AP Timetable</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://i.imgur.com/Ozt6V5X.png">
     <link rel="stylesheet" href="style.css">
-
-    <!-- Preconnect to Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
 </head>
-
 <body>
-    <!-- Main Content -->
-    <div id="main" data-framer-hydrate-v2="{&quot;routeId&quot;:&quot;augiA20Il&quot;,&quot;localeId&quot;:&quot;default&quot;,&quot;breakpoints&quot;:[{&quot;hash&quot;:&quot;72rtr7&quot;,&quot;mediaQuery&quot;:&quot;(min-width: 1200px)&quot;},{&quot;hash&quot;:&quot;1niqwpz&quot;,&quot;mediaQuery&quot;:&quot;(min-width: 810px) and (max-width: 1199.98px)&quot;},{&quot;hash&quot;:&quot;jqs9bc&quot;,&quot;mediaQuery&quot;:&quot;(max-width: 809.98px)&quot;}]}"
-        data-framer-ssr-released-at="2025-09-24T13:05:53.498Z" data-framer-page-optimized-at="2025-09-27T07:34:33.166Z" data-framer-generated-page>
-        
-        <div data-framer-root class="framer-aM6xX framer-efx6H framer-MmAsK framer-O3L7p framer-9vzBH framer-72rtr7">
-            <!-- Hero Section -->
-            <section class="framer-wqmi5g" data-framer-name="Hero" id="hero">
-                <!-- Hero content from your file -->
-            </section>
-            
-            <!-- Features Section -->
-            <section class="framer-toagwy" data-framer-name="Features" id="2">
-                 <!-- Features content from your file -->
-            </section>
-            
-            <!-- Security Section -->
-            <section class="framer-1jkotac" data-framer-name="Security" id="security">
-                <!-- Security content from your file -->
-            </section>
 
-            <!-- Integrations Section -->
-            <section class="framer-uso2mf" data-framer-name="Integrations" id="integrations">
-                <!-- Integrations content from your file -->
-            </section>
-            
-            <!-- Navigation -->
-            <div class="framer-1ekshrn-container">
-                <!-- Navigation content from your file -->
+    <!-- Login Page -->
+    <div id="login-container" class="hidden">
+        <div class="login-card">
+            <h1 class="text-3xl md:text-4xl font-bold brand-gradient-text mb-2">VIT-AP Timetable</h1>
+            <p class="text-gray-500 mb-8">Sign in to access your interactive schedule.</p>
+            <button id="google-login-btn" class="google-login-button">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691c-1.222 2.183-1.926 4.672-1.926 7.309c0 2.637.704 5.126 1.926 7.309l-5.657 5.657C.883 31.896 0 28.082 0 24c0-4.082.883-7.896 2.343-11.357l3.963 3.049z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-5.657-5.657C30.078 35.213 27.225 36 24 36c-5.223 0-9.641-3.341-11.303-7.961l-5.657 5.657C10.038 40.023 16.499 44 24 44z"/><path fill="#1565C0" d="M43.611 20.083H24v8h11.303c-0.792 2.237-2.231 4.16-4.087 5.571l5.657 5.657C41.074 35.845 44 30.345 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
+                <span>Sign in with Google</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app-container" class="max-w-7xl mx-auto relative hidden p-4 md:p-8">
+        
+        <div class="header-controls">
+            <div id="beta-button" class="beta-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L9.5 8.5L4 11L9.5 13.5L12 19L14.5 13.5L20 11L14.5 8.5L12 3Z"/></svg>
+                <span>Beta</span>
             </div>
-            
-            <!-- Large/Footer Section -->
-            <div class="framer-11dir28-container">
-                 <!-- Large section content from your file -->
+            <div class="relative">
+                <select id="theme-select" class="glass-button rounded-full py-1 pl-3">
+                    <option value="theme-light">Default Light</option>
+                    <option value="theme-dark">Midnight Dark</option>
+                    <option value="theme-ocean">Ocean Blue</option>
+                    <option value="theme-cyberpunk">Cyberpunk Grid</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="user-info">
+            <!-- User info will be injected here -->
+        </div>
+
+        <header class="mb-8 text-center pt-24 md:pt-0">
+            <h1 class="text-4xl md:text-5xl font-bold brand-gradient-text">My VIT-AP Timetable</h1>
+            <p id="welcome-message" class="text-gray-500 mt-2">Your interactive schedule for the semester.</p>
+        </header>
+
+        <div class="cat-clock">
+            <span id="clock-text">--:-- --</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="card-bg p-6 rounded-2xl">
+                <h2 class="font-bold text-lg text-gray-700 mb-2">Next Up</h2>
+                <div id="next-class-card" class="text-gray-600">Loading...</div>
+            </div>
+            <div class="card-bg p-6 rounded-2xl">
+                <h2 class="font-bold text-lg text-gray-700 mb-2">Day's First Class</h2>
+                <div id="first-class-card" class="text-gray-600">Loading...</div>
+            </div>
+            <div class="card-bg p-6 rounded-2xl">
+                <h2 class="font-bold text-lg text-gray-700 mb-2">Day's Last Class</h2>
+                <div id="last-class-card" class="text-gray-600">Loading...</div>
             </div>
         </div>
         
-        <div id="overlay"></div>
+        <div class="card-bg p-4 rounded-2xl mb-8">
+            <div id="day-selector" class="flex flex-wrap justify-center gap-3"></div>
+        </div>
+
+        <div id="course-legend" class="card-bg p-4 rounded-2xl mb-8"></div>
+
+        <div id="timetable-container" class="card-bg p-4 rounded-2xl">
+            <div id="day-timeline" class="day-timeline relative"></div>
+        </div>
+
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>Created by Anuj Tiwari</p>
+            <div class="flex justify-center gap-4 mt-2">
+                <a href="https://github.com/anuj7iwari" target="_blank" class="hover:text-blue-500 transition">GitHub</a>
+                <span>&bull;</span>
+                <a href="mailto:anuj7iwari@gmail.com" class="hover:text-blue-500 transition">Mail</a>
+            </div>
+        </footer>
+
+        <!-- Modals -->
+        <div id="class-modal" class="modal-backdrop hidden">
+            <div class="card-bg rounded-2xl shadow-2xl w-11/12 max-w-md p-8 relative transform transition-all duration-300 scale-95 opacity-0" id="class-modal-content"></div>
+        </div>
+        <div id="beta-modal" class="modal-backdrop hidden">
+            <div class="card-bg rounded-2xl shadow-2xl w-11/12 max-w-sm p-8 relative transform transition-all duration-300 scale-95 opacity-0 text-center" id="beta-modal-content">
+                <p class="text-xl font-bold brand-gradient-text">Psst!</p>
+                <p class="mt-2 text-gray-500">Cats are working in the backend, do not disturb them.</p>
+            </div>
+        </div>
     </div>
-
-  
-
-    <!-- JavaScript Files -->
-    <script src="script.js" defer></script>
-    <script type="module" async data-framer-bundle="main" src="https://framerusercontent.com/sites/0sFqkCC7EyYb8twlR7iKL/script_main.nH1Crj1p.mjs"></script>
     
-    <!-- SVG Templates -->
-    <div id="svg-templates" style="position: absolute; overflow: hidden; bottom: 0; left: 0; width: 0; height: 0; z-index: 0; contain: strict" aria-hidden="true">
-    </div>
-
+    <script type="module" src="script.js"></script>
 </body>
-
 </html>
 
